@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'UbuntuCustom';
+  src: url('/assets/ubuntu.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 18s linear infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #facc15;
+  /* Tailwind yellow-400 */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #18181b;
+  /* Tailwind gray-900 */
+}
+
+/* Firefox */
+html {
+  scrollbar-color: #facc15 #18181b;
+  scrollbar-width: thin;
+}
