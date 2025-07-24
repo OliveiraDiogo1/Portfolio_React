@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-const skills = [
-    "REACT",
-    "MYSQL",
-    // Add more skills as needed
-];
-
 const typewriterWords = [
     "Full-Stack Developer",
     "Tech-Enthusiast",
@@ -56,15 +50,6 @@ const Typewriter = () => {
     );
 };
 
-const AboutSection = () => (
-    <section className="w-full min-h-[60vh] flex flex-col items-center justify-center bg-yellow-400 text-gray-900 py-24 px-4">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-6">About Me</h2>
-        <p className="max-w-2xl text-center text-lg md:text-xl font-medium">
-            I’m Diogo Oliveira, a passionate developer who loves building beautiful and functional web experiences. I enjoy working with modern technologies, learning new things, and collaborating with others to create impactful digital products. I’m always curious, always improving, and always ready for the next challenge.
-        </p>
-    </section>
-);
-
 const Home = () => {
     return (
         <main className="w-full">
@@ -87,7 +72,6 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            <AboutSection />
         </main>
     );
 };

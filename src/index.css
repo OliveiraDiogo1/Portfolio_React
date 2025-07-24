@@ -26,6 +26,22 @@
   animation: marquee 18s linear infinite;
 }
 
+@keyframes marquee-slow {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-slow {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee-slow 36s linear infinite;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
