@@ -42,24 +42,35 @@
   animation: marquee-slow 36s linear infinite;
 }
 
-/* Custom Scrollbar */
+
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #facc15;
-  /* Tailwind yellow-400 */
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-track {
   background: #18181b;
-  /* Tailwind gray-900 */
 }
 
-/* Firefox */
 html {
   scrollbar-color: #facc15 #18181b;
   scrollbar-width: thin;
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
