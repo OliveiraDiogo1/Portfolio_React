@@ -16,6 +16,99 @@ const skills = [
   "DOCKER",
 ];
 
+const experienceData = [
+  {
+    id: 100,
+    date: "Oct 2024 – Present",
+    role: "Junior Software Developer",
+    company: "Sistrade - Software Consulting S.A.",
+    description: "Modernized ERP features with Vue.js and .NET/C#, upgraded legacy ASP/ASPX screens, improved UI responsiveness, optimized SQL Server performance, built APIs for real-time factory data and event logging, and co-advised an intern.",
+    technologies: ["Vue.js", ".NET/C#", "ASP/ASPX", "MS SQL Server", "API", "JavaScript", "Python", "Kubernetes", "Docker"],
+    logo: "/assets/icons/sistrade.png"
+  },
+  {
+    id: 101,
+    date: "Jul 2024 – Nov 2024",
+    role: "Intern - Software Developer",
+    company: "Sistrade - Software Consulting S.A.",
+    description: "Built a Vue.js form and backend logic for employee position management, designed database schemas, and integrated with MS SQL Server.",
+    technologies: ["Vue.js", ".NET/C#", "MS SQL Server"],
+    logo: "/assets/icons/sistrade.png"
+  }
+];
+
+const ExperienceSection = () => {
+  return (
+    <section 
+      className="w-full flex flex-col items-center justify-center min-h-[60vh] py-12 sm:py-16"
+      style={{ backgroundColor: 'rgb(196, 143, 11)' }}
+    >
+      <div className="w-[95vw] max-w-[1800px] bg-transparent rounded-3xl overflow-hidden flex flex-col items-center justify-start">
+        <h2 className="text-[6vw] sm:text-[8vw] font-extrabold text-gray-900 text-center mt-0 mb-8 sm:mb-12 tracking-widest leading-none">EXPERIENCE</h2>
+        <div className="w-full max-w-7xl space-y-10">
+          {experienceData.map((exp) => (
+            <div key={exp.id} className="relative flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12 p-8 bg-gray-900 rounded-2xl border border-gray-700 shadow-2xl hover:shadow-gray-600/30 transition-all duration-300">
+              {/* Date Column - 30% width */}
+              <div className="w-full lg:w-[30%] flex-shrink-0 flex items-start">
+                <div className="text-yellow-400 font-bold text-lg sm:text-xl tracking-wide">
+                  {exp.date}
+                </div>
+              </div>
+              
+              {/* Job Details Column - 40% width */}
+              <div className="w-full lg:w-[40%] flex-shrink-0 flex flex-col justify-center">
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-white font-bold text-xl sm:text-2xl mb-2">
+                      {exp.role}
+                    </h3>
+                    <p className="text-red-400 font-semibold text-lg sm:text-xl hover:text-cyan-200 transition-colors">
+                      {exp.company}
+                    </p>
+                  </div>
+                  <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+                    {exp.description}
+                  </p>
+                  <div className="flex flex-wrap gap-3 pt-2">
+                    {exp.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-4 py-2 bg-yellow-400/20 text-yellow-300 text-sm sm:text-base rounded-full border border-yellow-400/30 hover:bg-yellow-400/30 hover:border-yellow-400/50 hover:text-yellow-200 hover:shadow-lg hover:shadow-yellow-400/25 transition-all duration-200"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* Company Logo - absolutely positioned top right */}
+              <div className="hidden lg:block">
+                <div className="absolute top-6 right-6 w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 bg-gray-800 rounded-2xl flex items-center justify-center p-4 border border-gray-700 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden">
+                  <img
+                    src={exp.logo}
+                    alt={`${exp.company} logo`}
+                    className="w-full h-full object-contain filter brightness-110 contrast-110"
+                  />
+                </div>
+              </div>
+              {/* Show logo inline for mobile/tablet */}
+              <div className="flex justify-center mt-6 lg:hidden">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 bg-gray-800 rounded-2xl flex items-center justify-center p-4 border border-gray-700 shadow-xl overflow-hidden">
+                  <img
+                    src={exp.logo}
+                    alt={`${exp.company} logo`}
+                    className="w-full h-full object-contain filter brightness-110 contrast-110"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const SkillsSection = () => {
   // Create enough repetitions to ensure seamless loop
   const repeatedSkills = [...skills, ...skills, ...skills, ...skills, ...skills, ...skills];
@@ -26,16 +119,21 @@ const SkillsSection = () => {
         <div className="overflow-hidden w-full flex items-center justify-center" style={{ height: '4rem sm:8rem' }}>
           <div className="marquee-container">
             <div className="marquee-content">
-              {repeatedSkills.map((skill, idx) => (
-                <span key={idx} className="align-middle">
+            {repeatedSkills.map((skill, idx) => (
+              <span key={idx} className="align-middle">
                   <span className="mx-6 sm:mx-12 text-3xl sm:text-7xl font-extrabold text-white inline-block align-middle">
-                    {skill}
-                  </span>
-                  <span className="mx-6 sm:mx-12 text-3xl sm:text-7xl font-extrabold text-yellow-400 align-middle">|</span>
+                  {skill}
                 </span>
-              ))}
+                  <span className="mx-6 sm:mx-12 text-3xl sm:text-7xl font-extrabold text-yellow-400 align-middle">|</span>
+              </span>
+            ))}
             </div>
           </div>
+        </div>
+        <div className="flex justify-center mt-6 sm:mt-8">
+          <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-4 py-2 rounded-full shadow transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200">
+            View All
+          </button>
         </div>
       </div>
     </section>
@@ -73,7 +171,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between w-full sm:w-auto">
         <div className="flex items-center space-x-2 sm:space-x-3">
           <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full overflow-hidden flex items-center justify-center">
-            <img src="/assets/dev-icon.png" alt="Logo" className="w-full h-full object-cover" />
+        <img src="/assets/dev-icon.png" alt="Logo" className="w-full h-full object-cover" />
           </div>
           <span className="font-ubuntu text-lg sm:text-xl md:text-2xl font-bold text-gray-900 tracking-wide">Diogo Oliveira</span>
         </div>
@@ -99,6 +197,7 @@ const Navbar = () => {
         <HashLink smooth to="/#home" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Home</HashLink>
         <HashLink smooth to="/#about" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">About</HashLink>
         <HashLink smooth to="/#skills" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Skills</HashLink>
+        <HashLink smooth to="/#experience" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Experience</HashLink>
         <Link to="/contact" onClick={closeMenu} className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200">Contact</Link>
       </div>
       
@@ -108,11 +207,12 @@ const Navbar = () => {
           <HashLink smooth to="/#home" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Home</HashLink>
           <HashLink smooth to="/#about" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">About</HashLink>
           <HashLink smooth to="/#skills" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Skills</HashLink>
+          <HashLink smooth to="/#experience" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Experience</HashLink>
           <Link to="/contact" onClick={closeMenu} className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold px-3 py-2 rounded-full shadow transition-all text-base focus:outline-none focus:ring-2 focus:ring-yellow-200 text-center">Contact</Link>
-        </div>
-      </div>
-    </nav>
-  );
+    </div>
+    </div>
+  </nav>
+);
 };
 
 const AboutSection = React.forwardRef((props, ref) => (
@@ -156,13 +256,16 @@ function App() {
           <Route path="/" element={
             <>
               <div id="home">
-                <Home />
+              <Home />
               </div>
               <div id="about">
                 <AboutSection ref={aboutRef} />
               </div>
               <div id="skills">
                 <SkillsSection />
+              </div>
+              <div id="experience">
+                <ExperienceSection />
               </div>
             </>
           } />

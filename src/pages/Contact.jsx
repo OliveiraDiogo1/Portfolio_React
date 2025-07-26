@@ -115,13 +115,13 @@ export default function Contact() {
             console.log('EmailJS response:', response);
 
             if (response.status === 200) {
-                setSubmitted(true);
-                setForm({ name: "", email: "", message: "" });
+        setSubmitted(true);
+        setForm({ name: "", email: "", message: "" });
                 setRecaptchaToken(null);
                 if (recaptchaRef.current) {
                     recaptchaRef.current.reset();
                 }
-                setTimeout(() => setSubmitted(false), 5000);
+        setTimeout(() => setSubmitted(false), 5000);
                 
                 // Log successful submission
                 logSecurityEvent('EMAIL_SENT_SUCCESSFULLY', {
@@ -295,10 +295,10 @@ export default function Contact() {
                                             </>
                                         ) : (
                                             <>
-                                                Send Message
+                                        Send Message
                                                 <svg className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                                                </svg>
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                        </svg>
                                             </>
                                         )}
                                     </span>
