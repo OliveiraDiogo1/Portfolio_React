@@ -131,11 +131,13 @@ function ContactSection() {
 const Home = () => {
     return (
         <main className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden">
+            {/* Animated gradient background */}
             <div className="absolute inset-0 z-0 animate-pulse bg-gradient-to-tr from-blue-500/10 via-purple-700/10 to-pink-500/10" />
-            <section className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full max-w-5xl mx-auto py-24 px-4 gap-12">
-                <div className="flex-1 flex flex-col items-center md:items-start justify-center">
-                    <div className="mb-6 flex items-center justify-center">
-                        <div className="w-44 h-44 rounded-full overflow-hidden flex items-center justify-center">
+            <section className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full max-w-5xl mx-auto py-16 md:py-24 px-2 sm:px-4 gap-8 md:gap-12">
+                {/* Left: Avatar, Name, Subtitle, Button */}
+                <div className="flex-1 flex flex-col items-center md:items-start justify-center w-full">
+                    <div className="mb-4 md:mb-6 flex items-center justify-center">
+                        <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full overflow-hidden flex items-center justify-center">
                             <img
                                 src="/assets/dev-icon.png"
                                 alt="Dev Icon"
@@ -145,25 +147,24 @@ const Home = () => {
                             />
                         </div>
                     </div>
-                    <h1 className="font-ubuntu text-5xl md:text-6xl font-extrabold text-white text-center md:text-left mb-2">
+                    <h1 className="font-ubuntu text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white text-center md:text-left mb-2">
                         <span className="text-white">Diogo </span>
                         <span className="text-yellow-300">Oliveira</span>
                     </h1>
-                    <div className="mt-2 mb-6">
+                    <div className="mt-2 mb-4 md:mb-6">
                         <Typewriter />
                     </div>
-                    <Link to="/contact" className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold py-3 px-8 rounded-full shadow-md transition-all text-lg focus:outline-none focus:ring-2 focus:ring-yellow-200 border border-yellow-200">
-                        Contact Me
-                    </Link>
+                    <Link to="/contact" className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold py-2 px-6 rounded-full shadow-md transition-all text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-yellow-200 border border-yellow-200 mt-2">Contact Me</Link>
                 </div>
-                <div className="flex-1 flex flex-col items-center justify-center">
-                    <div className="w-full max-w-md p-8 rounded-3xl bg-black/60 backdrop-blur-lg shadow-lg border border-zinc-700 flex flex-col items-center gap-6">
-                        <h2 className="text-2xl font-bold text-white mb-2 tracking-widest uppercase">Main Tech Stack</h2>
-                        <div className="flex flex-wrap justify-center gap-6">
+                {/* Right: Glassmorphism card with tech icons */}
+                <div className="flex-1 flex flex-col items-center justify-center w-full">
+                    <div className="w-full max-w-md p-4 sm:p-8 rounded-3xl bg-black/60 backdrop-blur-lg shadow-lg border border-zinc-700 flex flex-col items-center gap-4 sm:gap-6">
+                        <h2 className="text-lg sm:text-2xl font-bold text-white mb-2 tracking-widest uppercase">Main Tech Stack</h2>
+                        <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                             {techIcons.map((icon, idx) => (
-                                <div key={idx} className="relative group w-14 h-14 flex items-center justify-center">
+                                <div key={idx} className="relative group w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center">
                                     <span className={`absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-80 transition duration-300 pointer-events-none ${icon.glow}`}></span>
-                                    <img src={icon.src} alt={icon.alt} className="w-14 h-14 object-contain relative z-10" />
+                                    <img src={icon.src} alt={icon.alt} className="w-12 h-12 sm:w-14 sm:h-14 object-contain relative z-10" />
                                 </div>
                             ))}
                         </div>

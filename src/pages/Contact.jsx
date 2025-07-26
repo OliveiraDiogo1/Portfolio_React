@@ -1,5 +1,17 @@
 import React, { useState } from "react";
 
+const socialLinks = [
+    {
+        href: "https://www.linkedin.com/in/oliveiradiogo1/",
+        icon: "/assets/icons/linkedin.png",
+        alt: "LinkedIn",
+    },
+    {
+        href: "https://github.com/OliveiraDiogo1",
+        icon: "/assets/icons/github.png",
+        alt: "GitHub",
+    },
+];
 
 export default function Contact() {
     const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -19,11 +31,14 @@ export default function Contact() {
 
     return (
         <div className="h-screen w-full flex items-center justify-center relative overflow-hidden">
+            {/* Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-zinc-800">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(251,191,36,0.05)_0%,transparent_50%)]"></div>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(251,191,36,0.03)_0%,transparent_50%)]"></div>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_80%,rgba(251,191,36,0.02)_0%,transparent_50%)]"></div>
             </div>
+
+            {/* Content */}
             <div className="relative z-10 w-full max-w-3xl px-6">
                 <div className="text-center mb-6">
                     <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
@@ -38,6 +53,7 @@ export default function Contact() {
                     <div className="w-24 h-1 bg-gradient-to-r from-yellow-300 to-yellow-500 mx-auto mt-4 rounded-full"></div>
                 </div>
 
+                {/* Contact Form */}
                 <div className="relative">
                     <div className="absolute -inset-1 bg-gradient-to-r from-yellow-300/20 to-yellow-500/20 rounded-3xl blur-xl opacity-30"></div>
 
@@ -125,10 +141,32 @@ export default function Contact() {
                             </div>
                         )}
 
+                        {/* Social Links */}
+                        <div className="flex justify-center gap-8 mt-6 pt-6 border-t border-zinc-800/50">
+                            {socialLinks.map((link, index) => (
+                                <a
+                                    key={link.href}
+                                    href={link.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group relative"
+                                >
+                                    <div className="absolute -inset-2 bg-gradient-to-r from-yellow-300/20 to-yellow-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 blur"></div>
+                                    <div className="relative w-12 h-12 flex items-center justify-center bg-white rounded-full border border-zinc-300 group-hover:border-yellow-300 transition-all duration-300 group-hover:scale-110 shadow-lg">
+                                        <img
+                                            src={link.icon}
+                                            alt={link.alt}
+                                            className="w-6 h-6 transition-all duration-300"
+                                        />
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
 
+            {/* Animation Styles */}
             <style jsx>{`
                 @keyframes fade-in {
                     from {
