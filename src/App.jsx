@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
+import SecurityMonitor from "./components/SecurityMonitor";
 
 const skills = [
   "REACT",
@@ -17,21 +18,24 @@ const skills = [
 ];
 
 const SkillsSection = () => {
-  const repeatedSkills = [...skills, ...skills, ...skills];
+  // Create enough repetitions to ensure seamless loop
+  const repeatedSkills = [...skills, ...skills, ...skills, ...skills, ...skills, ...skills];
   return (
     <section className="w-full flex flex-col items-center justify-center bg-black min-h-[50vh] py-8 sm:py-12">
       <div className="w-[95vw] max-w-[1800px] bg-black rounded-3xl overflow-hidden flex flex-col items-center justify-start">
         <h2 className="text-[6vw] sm:text-[8vw] font-extrabold text-white text-center mt-0 mb-4 sm:mb-8 tracking-widest leading-none">SKILLS</h2>
         <div className="overflow-hidden w-full flex items-center justify-center" style={{ height: '4rem sm:8rem' }}>
-          <div className="inline-block animate-marquee-slow whitespace-nowrap align-middle">
-            {repeatedSkills.map((skill, idx) => (
-              <span key={idx} className="align-middle">
-                <span className="mx-6 sm:mx-12 text-3xl sm:text-7xl font-extrabold text-white inline-block align-middle">
-                  {skill}
+          <div className="marquee-container">
+            <div className="marquee-content">
+              {repeatedSkills.map((skill, idx) => (
+                <span key={idx} className="align-middle">
+                  <span className="mx-6 sm:mx-12 text-3xl sm:text-7xl font-extrabold text-white inline-block align-middle">
+                    {skill}
+                  </span>
+                  <span className="mx-6 sm:mx-12 text-3xl sm:text-7xl font-extrabold text-yellow-400 align-middle">|</span>
                 </span>
-                <span className="mx-6 sm:mx-12 text-3xl sm:text-7xl font-extrabold text-yellow-400 align-middle">|</span>
-              </span>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -95,7 +99,7 @@ const Navbar = () => {
       <div className="hidden sm:flex flex-wrap justify-center sm:flex-row gap-2 sm:gap-4 md:gap-8 items-center w-full sm:w-auto">
         <HashLink smooth to="/#home" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Home</HashLink>
         <HashLink smooth to="/#about" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">About</HashLink>
-        <HashLink smooth to="/#projects" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Skills</HashLink>
+        <HashLink smooth to="/#skills" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Skills</HashLink>
         <Link to="/contact" onClick={closeMenu} className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200">Contact</Link>
       </div>
       
@@ -104,7 +108,7 @@ const Navbar = () => {
         <div className="flex flex-col gap-1 p-4">
           <HashLink smooth to="/#home" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Home</HashLink>
           <HashLink smooth to="/#about" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">About</HashLink>
-          <HashLink smooth to="/#projects" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Skills</HashLink>
+          <HashLink smooth to="/#skills" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Skills</HashLink>
           <Link to="/contact" onClick={closeMenu} className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold px-3 py-2 rounded-full shadow transition-all text-base focus:outline-none focus:ring-2 focus:ring-yellow-200 text-center">Contact</Link>
         </div>
       </div>
@@ -147,19 +151,21 @@ function App() {
   return (
     <Router>
       <div className="relative min-h-screen">
+        <SecurityMonitor />
         <Navbar />
         <SocialBar hide={hideSocialBar} ref={socialBarRef} />
         <Routes>
           <Route path="/" element={
             <>
-              <Home />
+              <div id="home">
+                <Home />
+              </div>
               <div id="about">
                 <AboutSection ref={aboutRef} />
               </div>
-              <div id="projects">
-                {/* Projects section will be added here */}
+              <div id="skills">
+                <SkillsSection />
               </div>
-              <SkillsSection />
             </>
           } />
           <Route path="/contact" element={<Contact />} />
