@@ -32,14 +32,37 @@
   }
 
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-33.33%);
   }
 }
 
 .animate-marquee-slow {
   display: inline-block;
   white-space: nowrap;
-  animation: marquee-slow 36s linear infinite;
+  animation: marquee-slow 45s linear infinite;
+}
+
+/* New seamless marquee implementation */
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-content {
+  display: inline-block;
+  white-space: nowrap;
+  animation: seamless-marquee 60s linear infinite;
+  will-change: transform;
+}
+
+@keyframes seamless-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* Custom Scrollbar */
@@ -108,6 +131,11 @@ html {
     outline: 2px solid #facc15;
     outline-offset: 2px;
   }
+  
+  /* Adjust marquee speed for mobile */
+  .marquee-content {
+    animation-duration: 40s;
+  }
 }
 
 /* Tablet-specific improvements */
@@ -116,6 +144,11 @@ html {
   button, a {
     min-height: 48px;
     min-width: 48px;
+  }
+  
+  /* Adjust marquee speed for tablet */
+  .marquee-content {
+    animation-duration: 50s;
   }
 }
 
@@ -135,7 +168,7 @@ html {
 
 /* Better mobile animations */
 @media (prefers-reduced-motion: no-preference) {
-  .animate-marquee, .animate-marquee-slow {
+  .animate-marquee, .animate-marquee-slow, .marquee-content {
     will-change: transform;
   }
 }
