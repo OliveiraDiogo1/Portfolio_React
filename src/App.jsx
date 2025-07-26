@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
+import Skills from "./pages/Skills";
 
 const skills = [
   "REACT",
@@ -131,9 +132,9 @@ const SkillsSection = () => {
           </div>
         </div>
         <div className="flex justify-center mt-6 sm:mt-8">
-          <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-4 py-2 rounded-full shadow transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200">
+          <Link to="/skills" className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-4 py-2 rounded-full shadow transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200">
             View All
-          </button>
+          </Link>
         </div>
       </div>
     </section>
@@ -173,7 +174,7 @@ const Navbar = () => {
           <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full overflow-hidden flex items-center justify-center">
         <img src="/assets/dev-icon.png" alt="Logo" className="w-full h-full object-cover" />
           </div>
-          <span className="font-ubuntu text-lg sm:text-xl md:text-2xl font-bold text-gray-900 tracking-wide">Diogo Oliveira</span>
+          <HashLink smooth to="/#home" onClick={closeMenu} className="font-ubuntu text-lg sm:text-xl md:text-2xl font-bold text-gray-900 tracking-wide hover:text-yellow-500 transition-colors">Diogo Oliveira</HashLink>
         </div>
         
         {/* Mobile menu button */}
@@ -196,7 +197,7 @@ const Navbar = () => {
       <div className="hidden sm:flex flex-wrap justify-center sm:flex-row gap-2 sm:gap-4 md:gap-8 items-center w-full sm:w-auto">
         <HashLink smooth to="/#home" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Home</HashLink>
         <HashLink smooth to="/#about" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">About</HashLink>
-        <HashLink smooth to="/#skills" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Skills</HashLink>
+        <Link to="/skills" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Skills</Link>
         <HashLink smooth to="/#experience" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Experience</HashLink>
         <Link to="/contact" onClick={closeMenu} className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200">Contact</Link>
       </div>
@@ -206,13 +207,13 @@ const Navbar = () => {
         <div className="flex flex-col gap-1 p-4">
           <HashLink smooth to="/#home" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Home</HashLink>
           <HashLink smooth to="/#about" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">About</HashLink>
-          <HashLink smooth to="/#skills" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Skills</HashLink>
+          <Link to="/skills" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Skills</Link>
           <HashLink smooth to="/#experience" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Experience</HashLink>
           <Link to="/contact" onClick={closeMenu} className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold px-3 py-2 rounded-full shadow transition-all text-base focus:outline-none focus:ring-2 focus:ring-yellow-200 text-center">Contact</Link>
-    </div>
-    </div>
-  </nav>
-);
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 const AboutSection = React.forwardRef((props, ref) => (
@@ -270,6 +271,7 @@ function App() {
             </>
           } />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/skills" element={<Skills />} />
         </Routes>
       </div>
     </Router>

@@ -147,13 +147,9 @@ export default function Contact() {
     }
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center relative overflow-hidden py-8 sm:py-0">
-            {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-zinc-800">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(251,191,36,0.05)_0%,transparent_50%)]"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(251,191,36,0.03)_0%,transparent_50%)]"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_80%,rgba(251,191,36,0.02)_0%,transparent_50%)]"></div>
-            </div>
+        <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden py-8 sm:py-0">
+            {/* Animated gradient background */}
+            <div className="absolute inset-0 z-0 animate-pulse bg-gradient-to-tr from-blue-500/10 via-purple-700/10 to-pink-500/10" />
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-3xl px-4 sm:px-6">
