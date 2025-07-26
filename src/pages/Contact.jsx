@@ -7,12 +7,7 @@ import {
   checkRateLimit,
   validateOrigin,
   logSecurityEvent,
-  validateRecaptcha,
-  generateCSRFToken,
-  validateCSRFToken,
-  createSecureSession,
-  validateSession,
-  sanitizeUrl
+  validateRecaptcha
 } from '../utils/security';
 
 export default function Contact() {
@@ -23,43 +18,16 @@ export default function Contact() {
     const [error, setError] = useState("");
     const [validationErrors, setValidationErrors] = useState([]);
     const [recaptchaToken, setRecaptchaToken] = useState(null);
-    const [csrfToken, setCsrfToken] = useState("");
-    const [session, setSession] = useState(null);
     const recaptchaRef = useRef(null);
 
-    // Initialize security measures
+    // Initialize EmailJS
     useEffect(() => {
-        // Initialize EmailJS with environment variable
         const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
         if (publicKey && publicKey !== 'your_emailjs_public_key_here') {
             emailjs.init(publicKey);
         } else {
             logSecurityEvent('EMAILJS_NOT_CONFIGURED', { message: 'EmailJS public key not configured' });
         }
-
-        // Generate CSRF token
-        setCsrfToken(generateCSRFToken());
-
-        // Create secure session
-        setSession(createSecureSession());
-
-        // Security: Prevent form resubmission
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-
-        // Security: Monitor for suspicious activities
-        const handleVisibilityChange = () => {
-            if (document.hidden) {
-                logSecurityEvent('PAGE_HIDDEN', { timestamp: new Date().toISOString() });
-            }
-        };
-
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-
-        return () => {
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-        };
     }, []);
 
     function handleChange(e) {
@@ -80,17 +48,12 @@ export default function Contact() {
         setValidationErrors([]);
 
         try {
-            // 1. Session validation
-            if (!validateSession(session)) {
-                throw new Error('Session expired. Please refresh the page and try again.');
-            }
-
-            // 2. Origin validation
+            // 1. Origin validation
             if (!validateOrigin()) {
                 throw new Error('Request not allowed from this origin');
             }
 
-            // 3. Input validation and sanitization
+            // 2. Input validation and sanitization
             const { errors, sanitized } = validateAndSanitizeInput(form);
             if (errors.length > 0) {
                 setValidationErrors(errors);
@@ -98,20 +61,20 @@ export default function Contact() {
                 return;
             }
 
-            // 4. Rate limiting
+            // 3. Rate limiting
             const identifier = generateIdentifier(sanitized);
             const rateLimitCheck = checkRateLimit(identifier);
             if (!rateLimitCheck.allowed) {
                 throw new Error(rateLimitCheck.reason);
             }
 
-            // 5. reCAPTCHA validation
+            // 4. reCAPTCHA validation
             const recaptchaValid = await validateRecaptcha(recaptchaToken);
             if (!recaptchaValid) {
                 throw new Error('Please complete the reCAPTCHA verification');
             }
 
-            // 6. Get environment variables
+            // 5. Get environment variables
             const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
             const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
             const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -123,7 +86,7 @@ export default function Contact() {
                 throw new Error('Email service not properly configured');
             }
 
-            // 7. Enhanced EmailJS template parameters with security data
+            // 6. EmailJS template parameters
             const templateParams = {
                 from_name: sanitized.name,
                 from_email: sanitized.email,
@@ -131,17 +94,14 @@ export default function Contact() {
                 to_name: "Diogo Oliveira",
                 timestamp: new Date().toISOString(),
                 user_agent: navigator.userAgent,
-                origin: window.location.origin,
-                session_id: session?.sessionId,
-                csrf_token: csrfToken,
-                ip_hash: CryptoJS.SHA256(navigator.userAgent + screen.width + screen.height).toString().substring(0, 8)
+                origin: window.location.origin
             };
 
-            // 8. Send email using EmailJS
+            // 7. Send email using EmailJS
             console.log('Sending email with params:', {
                 serviceId,
                 templateId,
-                templateParams: { ...templateParams, csrf_token: '***' },
+                templateParams,
                 publicKey: publicKey ? '***' : 'undefined'
             });
             
@@ -166,8 +126,7 @@ export default function Contact() {
                 // Log successful submission
                 logSecurityEvent('EMAIL_SENT_SUCCESSFULLY', {
                     from: sanitized.email,
-                    timestamp: new Date().toISOString(),
-                    session_id: session?.sessionId
+                    timestamp: new Date().toISOString()
                 });
             } else {
                 throw new Error('Failed to send email');
@@ -180,8 +139,7 @@ export default function Contact() {
             logSecurityEvent('CONTACT_FORM_ERROR', {
                 error: error.message,
                 formData: { name: form.name, email: form.email },
-                timestamp: new Date().toISOString(),
-                session_id: session?.sessionId
+                timestamp: new Date().toISOString()
             });
         } finally {
             setIsLoading(false);

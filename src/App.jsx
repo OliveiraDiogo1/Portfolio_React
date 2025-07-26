@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
-import SecurityMonitor from "./components/SecurityMonitor";
 
 const skills = [
   "REACT",
@@ -151,7 +150,6 @@ function App() {
   return (
     <Router>
       <div className="relative min-h-screen">
-        <SecurityMonitor />
         <Navbar />
         <SocialBar hide={hideSocialBar} ref={socialBarRef} />
         <Routes>
