@@ -78,3 +78,85 @@ html {
     transform: rotate(360deg);
   }
 }
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Improve touch targets */
+  button, a, input, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better mobile scrolling */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent zoom on input focus on iOS */
+  input, textarea, select {
+    font-size: 16px;
+  }
+  
+  /* Improve mobile tap highlights */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Better mobile focus states */
+  button:focus, a:focus, input:focus, textarea:focus {
+    outline: 2px solid #facc15;
+    outline-offset: 2px;
+  }
+}
+
+/* Tablet-specific improvements */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Optimize for tablet touch */
+  button, a {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Ensure proper viewport handling */
+@viewport {
+  width: device-width;
+  initial-scale: 1;
+  maximum-scale: 1;
+  user-scalable: no;
+}
+
+/* Improve mobile performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Better mobile animations */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-marquee, .animate-marquee-slow {
+    will-change: transform;
+  }
+}
+
+/* Mobile-first responsive text */
+@media (max-width: 640px) {
+  .text-responsive {
+    font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+  }
+}
+
+/* Improve mobile form experience */
+@media (max-width: 768px) {
+  input, textarea {
+    border-radius: 8px;
+  }
+  
+  /* Better mobile button sizing */
+  .mobile-button {
+    padding: 12px 16px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}

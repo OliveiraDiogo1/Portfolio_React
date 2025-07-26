@@ -44,7 +44,7 @@ const Typewriter = () => {
     }, [charIndex, isErasing, wordIndex]);
 
     return (
-        <span className="text-3xl md:text-4xl font-mono text-yellow-300 h-12 inline-block">
+        <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-mono text-yellow-300 h-8 sm:h-10 md:h-12 inline-block">
             {text}
             <span className="border-r-2 border-yellow-300 animate-pulse ml-1">&nbsp;</span>
         </span>
@@ -73,12 +73,12 @@ function ContactSection() {
 
     return (
         <section id="contact" className="w-full min-h-screen flex justify-center items-center bg-gradient-to-b from-black/80 to-zinc-900">
-            <div className="w-full max-w-lg bg-zinc-900 rounded-3xl shadow-xl p-8 flex flex-col items-center">
-                <h2 className="text-3xl font-bold text-white mb-6">Contact Me</h2>
+            <div className="w-full max-w-lg bg-zinc-900 rounded-3xl shadow-xl p-6 sm:p-8 flex flex-col items-center">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">Contact Me</h2>
                 {submitted ? (
-                    <div className="text-yellow-300 text-lg font-semibold text-center py-8">Thank you for reaching out! I will get back to you soon.</div>
+                    <div className="text-yellow-300 text-base sm:text-lg font-semibold text-center py-6 sm:py-8">Thank you for reaching out! I will get back to you soon.</div>
                 ) : (
-                    <form className="w-full flex flex-col gap-5" onSubmit={handleSubmit} autoComplete="off">
+                    <form className="w-full flex flex-col gap-4 sm:gap-5" onSubmit={handleSubmit} autoComplete="off">
                         <label className="flex flex-col gap-2 text-white font-medium">
                             Name
                             <input
@@ -87,7 +87,7 @@ function ContactSection() {
                                 value={form.name}
                                 onChange={handleChange}
                                 required
-                                className="rounded-lg px-4 py-3 bg-zinc-800 text-white border-2 border-zinc-700 focus:border-yellow-300 focus:ring-2 focus:ring-yellow-200 outline-none transition"
+                                className="rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-zinc-800 text-white border-2 border-zinc-700 focus:border-yellow-300 focus:ring-2 focus:ring-yellow-200 outline-none transition"
                                 placeholder="Your name"
                             />
                         </label>
@@ -99,7 +99,7 @@ function ContactSection() {
                                 value={form.email}
                                 onChange={handleChange}
                                 required
-                                className="rounded-lg px-4 py-3 bg-zinc-800 text-white border-2 border-zinc-700 focus:border-yellow-300 focus:ring-2 focus:ring-yellow-200 outline-none transition"
+                                className="rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-zinc-800 text-white border-2 border-zinc-700 focus:border-yellow-300 focus:ring-2 focus:ring-yellow-200 outline-none transition"
                                 placeholder="you@email.com"
                             />
                         </label>
@@ -110,14 +110,14 @@ function ContactSection() {
                                 value={form.message}
                                 onChange={handleChange}
                                 required
-                                rows={5}
-                                className="rounded-lg px-4 py-3 bg-zinc-800 text-white border-2 border-zinc-700 focus:border-yellow-300 focus:ring-2 focus:ring-yellow-200 outline-none transition resize-none"
+                                rows={4}
+                                className="rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-zinc-800 text-white border-2 border-zinc-700 focus:border-yellow-300 focus:ring-2 focus:ring-yellow-200 outline-none transition resize-none"
                                 placeholder="How can I help you?"
                             />
                         </label>
                         <button
                             type="submit"
-                            className="mt-2 bg-yellow-300 hover:bg-yellow-400 text-black font-bold py-3 px-8 rounded-full shadow-md transition-all text-lg focus:outline-none focus:ring-2 focus:ring-yellow-200 border border-yellow-200"
+                            className="mt-2 bg-yellow-300 hover:bg-yellow-400 text-black font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-full shadow-md transition-all text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-yellow-200 border border-yellow-200"
                         >
                             Send Message
                         </button>
@@ -133,11 +133,11 @@ const Home = () => {
         <main className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden">
             {/* Animated gradient background */}
             <div className="absolute inset-0 z-0 animate-pulse bg-gradient-to-tr from-blue-500/10 via-purple-700/10 to-pink-500/10" />
-            <section className="relative z-10 flex flex-col md:flex-row items-center justify-center w-full max-w-5xl mx-auto py-16 md:py-24 px-2 sm:px-4 gap-8 md:gap-12">
+            <section className="relative z-10 flex flex-col lg:flex-row items-center justify-center w-full max-w-5xl mx-auto py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 gap-8 md:gap-12">
                 {/* Left: Avatar, Name, Subtitle, Button */}
-                <div className="flex-1 flex flex-col items-center md:items-start justify-center w-full">
-                    <div className="mb-4 md:mb-6 flex items-center justify-center">
-                        <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full overflow-hidden flex items-center justify-center">
+                <div className="flex-1 flex flex-col items-center lg:items-start justify-center w-full">
+                    <div className="mb-4 sm:mb-6 flex items-center justify-center">
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 rounded-full overflow-hidden flex items-center justify-center">
                             <img
                                 src="/assets/dev-icon.png"
                                 alt="Dev Icon"
@@ -147,24 +147,24 @@ const Home = () => {
                             />
                         </div>
                     </div>
-                    <h1 className="font-ubuntu text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white text-center md:text-left mb-2">
+                    <h1 className="font-ubuntu text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white text-center lg:text-left mb-2">
                         <span className="text-white">Diogo </span>
                         <span className="text-yellow-300">Oliveira</span>
                     </h1>
-                    <div className="mt-2 mb-4 md:mb-6">
+                    <div className="mt-2 mb-4 sm:mb-6">
                         <Typewriter />
                     </div>
-                    <Link to="/contact" className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold py-2 px-6 rounded-full shadow-md transition-all text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-yellow-200 border border-yellow-200 mt-2">Contact Me</Link>
+                    <Link to="/contact" className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold py-2 px-4 sm:px-6 rounded-full shadow-md transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200 border border-yellow-200 mt-2">Contact Me</Link>
                 </div>
                 {/* Right: Glassmorphism card with tech icons */}
                 <div className="flex-1 flex flex-col items-center justify-center w-full">
-                    <div className="w-full max-w-md p-4 sm:p-8 rounded-3xl bg-black/60 backdrop-blur-lg shadow-lg border border-zinc-700 flex flex-col items-center gap-4 sm:gap-6">
-                        <h2 className="text-lg sm:text-2xl font-bold text-white mb-2 tracking-widest uppercase">Main Tech Stack</h2>
-                        <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+                    <div className="w-full max-w-sm sm:max-w-md p-4 sm:p-6 md:p-8 rounded-3xl bg-black/60 backdrop-blur-lg shadow-lg border border-zinc-700 flex flex-col items-center gap-4 sm:gap-6">
+                        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 tracking-widest uppercase text-center">Main Tech Stack</h2>
+                        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6">
                             {techIcons.map((icon, idx) => (
-                                <div key={idx} className="relative group w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center">
+                                <div key={idx} className="relative group w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center">
                                     <span className={`absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-80 transition duration-300 pointer-events-none ${icon.glow}`}></span>
-                                    <img src={icon.src} alt={icon.alt} className="w-12 h-12 sm:w-14 sm:h-14 object-contain relative z-10" />
+                                    <img src={icon.src} alt={icon.alt} className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain relative z-10" />
                                 </div>
                             ))}
                         </div>
