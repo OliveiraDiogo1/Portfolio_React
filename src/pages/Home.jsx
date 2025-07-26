@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 const typewriterWords = [
@@ -11,7 +11,7 @@ const ERASING_SPEED = 40;
 const DELAY_AFTER_TYPING = 1200;
 const DELAY_AFTER_ERASING = 400;
 
-const Typewriter = () => {
+const Typewriter = React.memo(() => {
     const [text, setText] = useState("");
     const [isErasing, setIsErasing] = useState(false);
     const [wordIndex, setWordIndex] = useState(0);
@@ -49,7 +49,7 @@ const Typewriter = () => {
             <span className="border-r-2 border-yellow-300 animate-pulse ml-1">&nbsp;</span>
         </span>
     );
-};
+});
 
 const techIcons = [
     { src: "/assets/icons/Vue.svg", alt: "Vue.js", glow: "bg-green-400/70" },
@@ -57,19 +57,19 @@ const techIcons = [
     { src: "/assets/icons/sql.png", alt: "SQL", glow: "bg-blue-400/70" },
 ];
 
-function ContactSection() {
+const ContactSection = React.memo(() => {
     const [form, setForm] = React.useState({ name: '', email: '', message: '' });
     const [submitted, setSubmitted] = React.useState(false);
 
-    function handleChange(e) {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    }
+    const handleChange = useCallback((e) => {
+        setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    }, []);
 
-    function handleSubmit(e) {
+    const handleSubmit = useCallback((e) => {
         e.preventDefault();
         setSubmitted(true);
         setForm({ name: '', email: '', message: '' });
-    }
+    }, []);
 
     return (
         <section id="contact" className="w-full min-h-screen flex justify-center items-center bg-gradient-to-b from-black/80 to-zinc-900">
@@ -126,15 +126,21 @@ function ContactSection() {
             </div>
         </section>
     );
-}
+});
 
-const Home = () => {
+const Home = React.memo(() => {
+    const techIconElements = useMemo(() => 
+        techIcons.map((icon, idx) => (
+            <div key={idx} className="relative group w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center">
+                <span className={`absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-80 transition duration-300 pointer-events-none ${icon.glow}`}></span>
+                <img src={icon.src} alt={icon.alt} className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain relative z-10" loading="lazy" />
+            </div>
+        )), []);
+
     return (
         <main className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden">
-            {/* Animated gradient background */}
             <div className="absolute inset-0 z-0 animate-pulse bg-gradient-to-tr from-blue-500/10 via-purple-700/10 to-pink-500/10" />
             <section className="relative z-10 flex flex-col lg:flex-row items-center justify-center w-full max-w-5xl mx-auto py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 gap-8 md:gap-12">
-                {/* Left: Avatar, Name, Subtitle, Button */}
                 <div className="flex-1 flex flex-col items-center lg:items-start justify-center w-full">
                     <div className="mb-4 sm:mb-6 flex items-center justify-center">
                         <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 rounded-full overflow-hidden flex items-center justify-center">
@@ -144,6 +150,7 @@ const Home = () => {
                                 className="w-full h-full object-cover"
                                 draggable={false}
                                 style={{ aspectRatio: '1 / 1' }}
+                                loading="lazy"
                             />
                         </div>
                     </div>
@@ -156,24 +163,18 @@ const Home = () => {
                     </div>
                     <Link to="/contact" className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold py-2 px-4 sm:px-6 rounded-full shadow-md transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200 border border-yellow-200 mt-2">Contact Me</Link>
                 </div>
-                {/* Right: Glassmorphism card with tech icons */}
                 <div className="flex-1 flex flex-col items-center justify-center w-full">
                     <div className="w-full max-w-sm sm:max-w-md p-4 sm:p-6 md:p-8 rounded-3xl bg-black/60 backdrop-blur-lg shadow-lg border border-zinc-700 flex flex-col items-center gap-4 sm:gap-6">
                         <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 tracking-widest uppercase text-center">Main Tech Stack</h2>
                         <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6">
-                            {techIcons.map((icon, idx) => (
-                                <div key={idx} className="relative group w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center">
-                                    <span className={`absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-80 transition duration-300 pointer-events-none ${icon.glow}`}></span>
-                                    <img src={icon.src} alt={icon.alt} className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain relative z-10" />
-                                </div>
-                            ))}
+                            {techIconElements}
                         </div>
                     </div>
                 </div>
             </section>
         </main>
     );
-};
+});
 
 export default Home;
 export { ContactSection }; 

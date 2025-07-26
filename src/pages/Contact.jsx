@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import emailjs from 'emailjs-com';
 import ReCAPTCHA from 'react-google-recaptcha';
 import {
@@ -20,7 +20,6 @@ export default function Contact() {
     const [recaptchaToken, setRecaptchaToken] = useState(null);
     const recaptchaRef = useRef(null);
 
-    // Initialize EmailJS
     useEffect(() => {
         const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
         if (publicKey && publicKey !== 'your_emailjs_public_key_here') {
@@ -30,30 +29,27 @@ export default function Contact() {
         }
     }, []);
 
-    function handleChange(e) {
-        setForm({ ...form, [e.target.name]: e.target.value });
-        // Clear errors when user starts typing
+    const handleChange = useCallback((e) => {
+        setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
         if (error) setError("");
         if (validationErrors.length > 0) setValidationErrors([]);
-    }
+    }, [error, validationErrors.length]);
 
-    const handleRecaptchaChange = (token) => {
+    const handleRecaptchaChange = useCallback((token) => {
         setRecaptchaToken(token);
-    };
+    }, []);
 
-    async function handleSubmit(e) {
+    const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError("");
         setValidationErrors([]);
 
         try {
-            // 1. Origin validation
             if (!validateOrigin()) {
                 throw new Error('Request not allowed from this origin');
             }
 
-            // 2. Input validation and sanitization
             const { errors, sanitized } = validateAndSanitizeInput(form);
             if (errors.length > 0) {
                 setValidationErrors(errors);
@@ -61,20 +57,17 @@ export default function Contact() {
                 return;
             }
 
-            // 3. Rate limiting
             const identifier = generateIdentifier(sanitized);
             const rateLimitCheck = checkRateLimit(identifier);
             if (!rateLimitCheck.allowed) {
                 throw new Error(rateLimitCheck.reason);
             }
 
-            // 4. reCAPTCHA validation
             const recaptchaValid = await validateRecaptcha(recaptchaToken);
             if (!recaptchaValid) {
                 throw new Error('Please complete the reCAPTCHA verification');
             }
 
-            // 5. Get environment variables
             const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
             const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
             const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -86,7 +79,6 @@ export default function Contact() {
                 throw new Error('Email service not properly configured');
             }
 
-            // 6. EmailJS template parameters
             const templateParams = {
                 from_name: sanitized.name,
                 from_email: sanitized.email,
@@ -97,14 +89,6 @@ export default function Contact() {
                 origin: window.location.origin
             };
 
-            // 7. Send email using EmailJS
-            console.log('Sending email with params:', {
-                serviceId,
-                templateId,
-                templateParams,
-                publicKey: publicKey ? '***' : 'undefined'
-            });
-            
             const response = await emailjs.send(
                 serviceId,
                 templateId,
@@ -112,18 +96,15 @@ export default function Contact() {
                 publicKey
             );
 
-            console.log('EmailJS response:', response);
-
             if (response.status === 200) {
-        setSubmitted(true);
-        setForm({ name: "", email: "", message: "" });
+                setSubmitted(true);
+                setForm({ name: "", email: "", message: "" });
                 setRecaptchaToken(null);
                 if (recaptchaRef.current) {
                     recaptchaRef.current.reset();
                 }
-        setTimeout(() => setSubmitted(false), 5000);
+                setTimeout(() => setSubmitted(false), 5000);
                 
-                // Log successful submission
                 logSecurityEvent('EMAIL_SENT_SUCCESSFULLY', {
                     from: sanitized.email,
                     timestamp: new Date().toISOString()
@@ -135,7 +116,6 @@ export default function Contact() {
             console.error('Contact form error:', error);
             setError(error.message || "Sorry, there was an error sending your message. Please try again or contact me directly.");
             
-            // Log security event
             logSecurityEvent('CONTACT_FORM_ERROR', {
                 error: error.message,
                 formData: { name: form.name, email: form.email },
@@ -144,14 +124,29 @@ export default function Contact() {
         } finally {
             setIsLoading(false);
         }
-    }
+    }, [form, recaptchaToken]);
+
+    const isRecaptchaEnabled = useMemo(() => 
+        import.meta.env.VITE_RECAPTCHA_SITE_KEY && 
+        import.meta.env.VITE_RECAPTCHA_SITE_KEY !== 'your_recaptcha_site_key_here', 
+    []);
+
+    const isFormDisabled = useMemo(() => 
+        isLoading || (!recaptchaToken && isRecaptchaEnabled), 
+    [isLoading, recaptchaToken, isRecaptchaEnabled]);
+
+    const inputClassName = useCallback((fieldName) => 
+        `w-full rounded-xl px-3 sm:px-4 py-2 sm:py-3 bg-zinc-800/50 text-white border-2 outline-none backdrop-blur-sm transition-all duration-300 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed ${
+            focusedField === fieldName || form[fieldName]
+                ? "border-yellow-300 ring-2 ring-yellow-200/20 shadow-yellow-300/10"
+                : "border-zinc-700 hover:border-zinc-600"
+        }`, 
+    [focusedField, form]);
 
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden py-8 sm:py-0">
-            {/* Animated gradient background */}
             <div className="absolute inset-0 z-0 animate-pulse bg-gradient-to-tr from-blue-500/10 via-purple-700/10 to-pink-500/10" />
 
-            {/* Content */}
             <div className="relative z-10 w-full max-w-3xl px-4 sm:px-6">
                 <div className="text-center mb-6 sm:mb-8">
                     <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 sm:mb-3 leading-tight">
@@ -166,7 +161,6 @@ export default function Contact() {
                     <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-yellow-300 to-yellow-500 mx-auto mt-3 sm:mt-4 rounded-full"></div>
                 </div>
 
-                {/* Contact Form */}
                 <div className="relative">
                     <div className="absolute -inset-1 bg-gradient-to-r from-yellow-300/20 to-yellow-500/20 rounded-3xl blur-xl opacity-30"></div>
 
@@ -183,86 +177,61 @@ export default function Contact() {
                             </div>
                         ) : (
                             <div className="w-full flex flex-col gap-3 sm:gap-4">
-                                {error && (
-                                    <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 mb-4">
-                                        <p className="text-red-300 text-sm">{error}</p>
+                                <div className="flex flex-col gap-3 sm:gap-4">
+                                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                                        <div className="flex-1">
+                                            <label className="block text-sm font-medium text-zinc-300 mb-1 sm:mb-2">Name</label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value={form.name}
+                                                onChange={handleChange}
+                                                onFocus={() => setFocusedField("name")}
+                                                onBlur={() => setFocusedField("")}
+                                                required
+                                                disabled={isLoading}
+                                                placeholder="Your name"
+                                                maxLength={50}
+                                                className={inputClassName("name")}
+                                            />
+                                        </div>
+                                        <div className="flex-1">
+                                            <label className="block text-sm font-medium text-zinc-300 mb-1 sm:mb-2">Email</label>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                value={form.email}
+                                                onChange={handleChange}
+                                                onFocus={() => setFocusedField("email")}
+                                                onBlur={() => setFocusedField("")}
+                                                required
+                                                disabled={isLoading}
+                                                placeholder="you@email.com"
+                                                maxLength={254}
+                                                className={inputClassName("email")}
+                                            />
+                                        </div>
                                     </div>
-                                )}
-                                
-                                {validationErrors.length > 0 && (
-                                    <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 mb-4">
-                                        <ul className="text-red-300 text-sm list-disc list-inside">
-                                            {validationErrors.map((err, index) => (
-                                                <li key={index}>{err}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-                                
-                                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                                    <div className="flex-1">
-                                        <label className="block text-sm font-medium text-zinc-300 mb-1 sm:mb-2">Name</label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            value={form.name}
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-zinc-300 mb-1 sm:mb-2">Message</label>
+                                        <textarea
+                                            name="message"
+                                            value={form.message}
                                             onChange={handleChange}
-                                            onFocus={() => setFocusedField("name")}
+                                            onFocus={() => setFocusedField("message")}
                                             onBlur={() => setFocusedField("")}
                                             required
                                             disabled={isLoading}
-                                            placeholder="Your name"
-                                            maxLength={50}
-                                            className={`w-full rounded-xl px-3 sm:px-4 py-2 sm:py-3 bg-zinc-800/50 text-white border-2 outline-none backdrop-blur-sm transition-all duration-300 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed ${focusedField === "name" || form.name
-                                                ? "border-yellow-300 ring-2 ring-yellow-200/20 shadow-yellow-300/10"
-                                                : "border-zinc-700 hover:border-zinc-600"
-                                                }`}
-                                        />
-                                    </div>
-                                    <div className="flex-1">
-                                        <label className="block text-sm font-medium text-zinc-300 mb-1 sm:mb-2">Email</label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            value={form.email}
-                                            onChange={handleChange}
-                                            onFocus={() => setFocusedField("email")}
-                                            onBlur={() => setFocusedField("")}
-                                            required
-                                            disabled={isLoading}
-                                            placeholder="you@email.com"
-                                            maxLength={254}
-                                            className={`w-full rounded-xl px-3 sm:px-4 py-2 sm:py-3 bg-zinc-800/50 text-white border-2 outline-none backdrop-blur-sm transition-all duration-300 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed ${focusedField === "email" || form.email
-                                                ? "border-yellow-300 ring-2 ring-yellow-200/20 shadow-yellow-300/10"
-                                                : "border-zinc-700 hover:border-zinc-600"
-                                                }`}
+                                            rows={4}
+                                            maxLength={2000}
+                                            placeholder="How can I help you? Tell me about your project, ideas, or questions..."
+                                            className={inputClassName("message")}
                                         />
                                     </div>
                                 </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-zinc-300 mb-1 sm:mb-2">Message</label>
-                                    <textarea
-                                        name="message"
-                                        value={form.message}
-                                        onChange={handleChange}
-                                        onFocus={() => setFocusedField("message")}
-                                        onBlur={() => setFocusedField("")}
-                                        required
-                                        disabled={isLoading}
-                                        rows={4}
-                                        maxLength={2000}
-                                        placeholder="How can I help you? Tell me about your project, ideas, or questions..."
-                                        className={`w-full rounded-xl px-3 sm:px-4 py-2 sm:py-3 bg-zinc-800/50 text-white border-2 outline-none resize-none backdrop-blur-sm transition-all duration-300 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed ${focusedField === "message" || form.message
-                                            ? "border-yellow-300 ring-2 ring-yellow-200/20 shadow-yellow-300/10"
-                                            : "border-zinc-700 hover:border-zinc-600"
-                                            }`}
-                                    />
-                                </div>
-
-                                {/* reCAPTCHA */}
-                                {import.meta.env.VITE_RECAPTCHA_SITE_KEY && 
-                                 import.meta.env.VITE_RECAPTCHA_SITE_KEY !== 'your_recaptcha_site_key_here' && (
+                                {isRecaptchaEnabled && (
                                     <div className="flex justify-center">
                                         <ReCAPTCHA
                                             ref={recaptchaRef}
@@ -277,7 +246,7 @@ export default function Contact() {
                                 <button
                                     type="submit"
                                     onClick={handleSubmit}
-                                    disabled={isLoading || (!recaptchaToken && import.meta.env.VITE_RECAPTCHA_SITE_KEY)}
+                                    disabled={isFormDisabled}
                                     className="relative mt-2 bg-gradient-to-r from-yellow-300 to-yellow-500 hover:from-yellow-400 hover:to-yellow-600 text-black font-bold py-2 sm:py-3 px-6 sm:px-8 rounded-full shadow-lg transition-all duration-300 text-base sm:text-lg group overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <span className="relative z-10 flex items-center justify-center gap-2">
@@ -291,10 +260,10 @@ export default function Contact() {
                                             </>
                                         ) : (
                                             <>
-                                        Send Message
+                                                Send Message
                                                 <svg className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                                        </svg>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                                </svg>
                                             </>
                                         )}
                                     </span>
@@ -303,10 +272,29 @@ export default function Contact() {
                             </div>
                         )}
                     </div>
+
+                    {(!submitted && (error || validationErrors.length > 0)) && (
+                        <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 w-80 bg-red-500/90 backdrop-blur-sm rounded-lg p-4 border border-red-400 shadow-xl z-20">
+                            {error && (
+                                <div className="mb-2">
+                                    <p className="text-red-100 text-sm font-medium">{error}</p>
+                                </div>
+                            )}
+                            {validationErrors.length > 0 && (
+                                <div>
+                                    <p className="text-red-100 text-sm font-medium mb-2">Please fix the following:</p>
+                                    <ul className="text-red-100 text-sm list-disc list-inside space-y-1">
+                                        {validationErrors.map((err, index) => (
+                                            <li key={index}>{err}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
 
-            {/* Animation Styles */}
             <style jsx>{`
                 @keyframes fade-in {
                     from {
