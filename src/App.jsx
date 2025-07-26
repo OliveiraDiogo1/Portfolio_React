@@ -23,7 +23,7 @@ const experienceData = [
     date: "Oct 2024 – Present",
     role: "Junior Software Developer",
     company: "Sistrade - Software Consulting S.A.",
-    description: "Modernized ERP features with Vue.js and .NET/C#, upgraded legacy ASP/ASPX screens, improved UI responsiveness, optimized SQL Server performance, built APIs for real-time factory data and event logging, and co-advised an intern.",
+    description: "Modernized ERP features with Vue.js and .NET/C#, upgraded legacy ASP/ASPX screens, improved UI responsiveness, optimized SQL Server performance, built APIs for real-time factory data and event logging and co-advised an intern.",
     technologies: ["Vue.js", ".NET/C#", "ASP/ASPX", "MS SQL Server", "API", "JavaScript", "Python", "Kubernetes", "Docker"],
     logo: "/assets/icons/sistrade.png"
   },
@@ -32,7 +32,7 @@ const experienceData = [
     date: "Jul 2024 – Nov 2024",
     role: "Intern - Software Developer",
     company: "Sistrade - Software Consulting S.A.",
-    description: "Built a Vue.js form and backend logic for employee position management, designed database schemas, and integrated with MS SQL Server.",
+    description: "Built a Vue.js form and backend logic for employee position management, designed database schemas and integrated with MS SQL Server.",
     technologies: ["Vue.js", ".NET/C#", "MS SQL Server"],
     logo: "/assets/icons/sistrade.png"
   }
@@ -223,8 +223,7 @@ const AboutSection = React.memo(React.forwardRef((props, ref) => (
   >
     <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-4 sm:mb-6">About Me</h2>
     <p className="max-w-2xl text-center text-base sm:text-lg md:text-xl font-medium px-4">
-      I'm Diogo Oliveira, a passionate developer who loves building beautiful and functional web experiences. I enjoy working with modern technologies, learning new things, and collaborating with others to create impactful digital products. I'm always curious, always improving, and always ready for the next challenge.
-    </p>
+    I'm Diogo Oliveira. I build clean, efficient and user-focused web applications. I work with modern technologies and write code that solves real problems. I keep learning and pushing my skills. I don’t avoid challenges. I enjoy both front-end and back-end work. I care about building things that work well and working with people who take the craft seriously.    </p>
   </section>
 )));
 
