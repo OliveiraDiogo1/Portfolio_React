@@ -8,7 +8,8 @@ const skillsData = [
       { label: "Languages I use:", value: "JavaScript, TypeScript, HTML, CSS, Sass" },
       { label: "Frameworks:", value: "React, Vue.js" },
       { label: "UI Libraries:", value: "Bootstrap, Bulma" },
-      { label: "Dev Tools:", value: "Vite, Figma, Git" },
+      { label: "Styling Tools:", value: "Tailwind CSS, PostCSS, Autoprefixer" },
+      { label: "Dev Tools:", value: "Vite, ESLint, Figma, Git" },
     ],
     icon: "/assets/icons/front-end.png",
   },
@@ -16,20 +17,22 @@ const skillsData = [
     title: "Back-end & DB",
     description: "I design robust backends and manage data with scalable solutions.",
     highlights: [
-      { label: "Languages I use:", value: "Python, C#, SQL" },
+      { label: "Languages I use:", value: "Python, C#, Java, JavaFX, SQL" },
       { label: "Frameworks:", value: ".NET, ASP/ASPX" },
-      { label: "Databases:", value: "MS SQL Server" },
-      { label: "Dev Tools:", value: "Bitbucket, API design" },
+      { label: "Databases:", value: "MS SQL Server, MongoDB, MySQL, PostgreSQL" },
     ],
     icon: "/assets/icons/back-end-db.png",
   },
   {
     title: "DevOps",
-    description: "I automate, deploy, and monitor applications for reliability and scale.",
+    description: "I automate, deploy, monitor and secure applications for reliability and scale.",
     highlights: [
       { label: "Tools I use:", value: "Docker, Kubernetes, Git" },
-      { label: "CI/CD:", value: "Bitbucket Pipelines" },
-      { label: "Cloud/Infra:", value: "Linux, Scripting" },
+      { label: "CI/CD:", value: "GitLab Pipelines" },
+      { label: "Monitoring:", value: "Grafana, Prometheus, Fluentd, Loki, Alertmanager" },
+      { label: "Security Tools:", value: "CryptoJS" },
+      { label: "Bot Protection:", value: "Google reCAPTCHA" },
+      { label: "Email Services:", value: "EmailJS" },
     ],
     icon: "/assets/icons/dev-ops.png",
   },
@@ -37,11 +40,10 @@ const skillsData = [
 
 const Skills = () => {
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden py-12">
-      {/* Animated gradient background */}
+    <div className="min-h-screen w-full flex flex-col items-center justify-start bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden pt-20 pb-12">
       <div className="absolute inset-0 z-0 animate-pulse bg-gradient-to-tr from-blue-500/10 via-purple-700/10 to-pink-500/10" />
-      <div className="relative z-10 w-full flex flex-col items-center justify-center">
-        <h1 className="text-[6vw] sm:text-[8vw] font-extrabold text-white text-center mb-12 tracking-widest leading-none">SKILLS</h1>
+      <div className="relative z-10 w-full flex flex-col items-center justify-start">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-white text-center mb-8 sm:mb-12 tracking-widest leading-tight px-4">SKILLS</h1>
         <div className="w-full max-w-6xl flex flex-col md:flex-row gap-8 justify-center items-stretch px-4">
           {skillsData.map((pillar, idx) => (
             <div
@@ -75,4 +77,4 @@ const Skills = () => {
   );
 };
 
-export default Skills; 
+export default Skills;
