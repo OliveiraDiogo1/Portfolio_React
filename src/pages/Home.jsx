@@ -129,7 +129,7 @@ const ContactSection = React.memo(() => {
 });
 
 const Home = React.memo(() => {
-    const techIconElements = useMemo(() => 
+    const techIconElements = useMemo(() =>
         techIcons.map((icon, idx) => (
             <div key={idx} className="relative group w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center">
                 <span className={`absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-80 transition duration-300 pointer-events-none ${icon.glow}`}></span>
@@ -161,7 +161,16 @@ const Home = React.memo(() => {
                     <div className="mt-2 mb-4 sm:mb-6">
                         <Typewriter />
                     </div>
-                    <Link to="/contact" className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold py-2 px-4 sm:px-6 rounded-full shadow-md transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200 border border-yellow-200 mt-2">Contact Me</Link>
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center">
+                        <Link to="/contact" className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold py-2 px-4 sm:px-6 rounded-full shadow-md transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200 border border-yellow-200 mt-2">Contact Me</Link>
+                        <a
+                            href="/assets/resume_Diogo.pdf"
+                            download="resume_Diogo.pdf"
+                            className="border-2 border-yellow-300 hover:bg-yellow-300 hover:text-black text-yellow-300 font-bold py-2 px-4 sm:px-6 rounded-full shadow-md transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200"
+                        >
+                            Download Resume
+                        </a>
+                    </div>
                 </div>
                 <div className="flex-1 flex flex-col items-center justify-center w-full">
                     <div className="w-full max-w-sm sm:max-w-md p-4 sm:p-6 md:p-8 rounded-3xl bg-black/60 backdrop-blur-lg shadow-lg border border-zinc-700 flex flex-col items-center gap-4 sm:gap-6">
