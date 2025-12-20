@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef, useMemo, useCallback } from "react";
+import React, { useEffect, useState, useRef, useMemo, useCallback, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
-import Home from "./pages/Home";
-import Contact from "./pages/Contact";
-import Skills from "./pages/Skills";
+const Home = React.lazy(() => import("./pages/Home"));
+const Contact = React.lazy(() => import("./pages/Contact"));
+const Skills = React.lazy(() => import("./pages/Skills"));
 
 const skills = [
   "REACT",
@@ -248,11 +248,44 @@ function App() {
     return () => window.removeEventListener('scroll', throttledHandleScroll);
   }, []);
 
+  // Inject Plausible analytics if configured
+  useEffect(() => {
+    const domain = import.meta.env.VITE_PLAUSIBLE_DOMAIN;
+    if (!domain) return;
+    const s = document.createElement('script');
+    s.defer = true;
+    s.setAttribute('data-domain', domain);
+    s.src = 'https://plausible.io/js/script.js';
+    document.head.appendChild(s);
+    return () => { document.head.removeChild(s); };
+  }, []);
+
+  // Optional Sentry init (dynamic import, only if DSN provided)
+  useEffect(() => {
+    const dsn = import.meta.env.VITE_SENTRY_DSN;
+    if (!dsn) return;
+    (async () => {
+      try {
+        const moduleName = '@sentry/react';
+        const Sentry = await import(/* @vite-ignore */ moduleName);
+        Sentry.init({
+          dsn,
+          integrations: [],
+          tracesSampleRate: 0.1,
+        });
+      } catch (_) {
+        // Ignore if Sentry isn't installed
+      }
+    })();
+  }, []);
+
   return (
     <Router>
       <div className="relative min-h-screen">
         <Navbar />
         <SocialBar hide={hideSocialBar} />
+        <main id="main-content" role="main" tabIndex={-1}>
+        <Suspense fallback={<div className="pt-24 pb-8 flex items-center justify-center text-white">Loading…</div>}>
         <Routes>
           <Route path="/" element={
             <>
@@ -273,6 +306,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/skills" element={<Skills />} />
         </Routes>
+        </Suspense>
+        </main>
       </div>
     </Router>
   );

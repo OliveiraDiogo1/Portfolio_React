@@ -138,7 +138,7 @@ const Home = React.memo(() => {
         )), []);
 
     return (
-        <main className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden">
+        <main className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden pt-24 sm:pt-28 md:pt-32 pb-8">
             <div className="absolute inset-0 z-0 animate-pulse bg-gradient-to-tr from-blue-500/10 via-purple-700/10 to-pink-500/10" />
             <section className="relative z-10 flex flex-col lg:flex-row items-center justify-center w-full max-w-5xl mx-auto py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 gap-8 md:gap-12">
                 <div className="flex-1 flex flex-col items-center lg:items-start justify-center w-full">

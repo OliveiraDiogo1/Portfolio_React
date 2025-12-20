@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Accessibility: visible focus indicators */
+:focus-visible {
+  outline: 3px solid #FDE048;
+  outline-offset: 3px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @font-face {
   font-family: 'UbuntuCustom';
   src: url('/assets/ubuntu.ttf') format('truetype');

@@ -21,6 +21,10 @@ export default function Contact() {
     const recaptchaRef = useRef(null);
 
     useEffect(() => {
+        // Prevent duplicate init/logs in StrictMode or remounts
+        if (typeof window !== 'undefined' && window.__EMAILJS_INIT_DONE) return;
+        if (typeof window !== 'undefined') window.__EMAILJS_INIT_DONE = true;
+
         const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
         if (publicKey && publicKey !== 'your_emailjs_public_key_here') {
             emailjs.init(publicKey);
@@ -295,7 +299,7 @@ export default function Contact() {
                 </div>
             </div>
 
-            <style jsx>{`
+            <style>{`
                 @keyframes fade-in {
                     from {
                         opacity: 0;

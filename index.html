@@ -19,6 +19,18 @@
   <meta name="keywords" content="developer, portfolio, react, javascript, full-stack" />
   <meta name="author" content="Diogo Oliveira" />
   <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Open Graph Image -->
+  <meta property="og:image" content="/assets/dev-icon.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Diogo Oliveira Portfolio" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Diogo Oliveira - Full-Stack Developer" />
+  <meta name="twitter:description" content="Full-Stack Developer Portfolio" />
+  <meta name="twitter:image" content="/assets/dev-icon.png" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Diogo Oliveira - Full-Stack Developer" />
@@ -26,15 +38,33 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://yourdomain.com" />
 
-  <!-- Favicon -->
+  <!-- Favicon + Manifest -->
   <link rel="icon" type="image/png" href="/assets/dev-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
 
   <title>Diogo Oliveira - Full-Stack Developer</title>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
+  <style>
+    .skip-link {
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      background: #FDE048;
+      color: #000;
+      padding: 8px 12px;
+      border-radius: 9999px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transform: translateY(-200%);
+      transition: transform 0.2s ease;
+      z-index: 1000;
+    }
+    .skip-link:focus { transform: translateY(0); }
+  </style>
 </body>
 
 </html>
