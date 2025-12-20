@@ -40,7 +40,7 @@ const skillsData = [
 
 const Skills = React.memo(() => {
   const skillCards = useMemo(() => 
-    skillsData.map((pillar, idx) => (
+    skillsData.map((pillar) => (
       <div
         key={pillar.title}
         className="flex-1 bg-black/60 backdrop-blur-lg border border-zinc-700 rounded-3xl shadow-xl p-8 flex flex-col items-center text-center hover:shadow-yellow-400/20 transition-all"
@@ -52,6 +52,7 @@ const Skills = React.memo(() => {
               alt={pillar.title + " icon"}
               className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
               loading="lazy"
+              decoding="async"
             />
           </div>
         </div>

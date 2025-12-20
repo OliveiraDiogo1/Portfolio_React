@@ -19,6 +19,7 @@ export default function Contact() {
     const [validationErrors, setValidationErrors] = useState([]);
     const [recaptchaToken, setRecaptchaToken] = useState(null);
     const recaptchaRef = useRef(null);
+    const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || '';
 
     useEffect(() => {
         // Prevent duplicate init/logs in StrictMode or remounts
@@ -76,10 +77,23 @@ export default function Contact() {
             const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
             const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-            if (!serviceId || !templateId || !publicKey || 
-                serviceId === 'your_emailjs_service_id_here' ||
-                templateId === 'your_emailjs_template_id_here' ||
-                publicKey === 'your_emailjs_public_key_here') {
+            const emailServiceConfigured = (
+                !!serviceId && !!templateId && !!publicKey &&
+                serviceId !== 'your_emailjs_service_id_here' &&
+                templateId !== 'your_emailjs_template_id_here' &&
+                publicKey !== 'your_emailjs_public_key_here'
+            );
+
+            if (!emailServiceConfigured) {
+                if (contactEmail) {
+                    const subject = encodeURIComponent('Portfolio Contact');
+                    const body = encodeURIComponent(`Name: ${sanitized.name}\nEmail: ${sanitized.email}\n\n${sanitized.message}`);
+                    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+                    setSubmitted(true);
+                    setForm({ name: "", email: "", message: "" });
+                    setTimeout(() => setSubmitted(false), 5000);
+                    return;
+                }
                 throw new Error('Email service not properly configured');
             }
 
@@ -278,7 +292,7 @@ export default function Contact() {
                     </div>
 
                     {(!submitted && (error || validationErrors.length > 0)) && (
-                        <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 w-80 bg-red-500/90 backdrop-blur-sm rounded-lg p-4 border border-red-400 shadow-xl z-20">
+                        <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 w-80 bg-red-500/90 backdrop-blur-sm rounded-lg p-4 border border-red-400 shadow-xl z-20" role="alert" aria-live="polite" id="form-errors">
                             {error && (
                                 <div className="mb-2">
                                     <p className="text-red-100 text-sm font-medium">{error}</p>
@@ -294,6 +308,12 @@ export default function Contact() {
                                     </ul>
                                 </div>
                             )}
+                        </div>
+                    )}
+                    {(!submitted && contactEmail) && (
+                        <div className="mt-4 text-center text-sm text-zinc-300">
+                            <span>If the form doesn’t work, email me at </span>
+                            <a className="text-yellow-300 font-semibold underline" href={`mailto:${contactEmail}?subject=${encodeURIComponent('Portfolio Contact')}`}>{contactEmail}</a>
                         </div>
                     )}
                 </div>

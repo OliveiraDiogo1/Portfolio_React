@@ -273,7 +273,7 @@ function App() {
           integrations: [],
           tracesSampleRate: 0.1,
         });
-      } catch (_) {
+      } catch {
         // Ignore if Sentry isn't installed
       }
     })();

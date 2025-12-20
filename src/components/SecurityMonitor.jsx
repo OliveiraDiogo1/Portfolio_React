@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { logSecurityEvent } from '../utils/security';
 
 const SecurityMonitor = () => {
-    const [securityEvents, setSecurityEvents] = useState([]);
     const [isMonitoring, setIsMonitoring] = useState(true);
 
     useEffect(() => {
@@ -53,7 +52,7 @@ const SecurityMonitor = () => {
                 let rapidClicks = 0;
                 let lastClickTime = 0;
                 
-                document.addEventListener('click', (e) => {
+                document.addEventListener('click', () => {
                     const now = Date.now();
                     if (now - lastClickTime < 100) {
                         rapidClicks++;
@@ -141,13 +140,13 @@ const SecurityMonitor = () => {
 
             // Monitor for clipboard access
             clipboardMonitoring: () => {
-                document.addEventListener('copy', (e) => {
+                document.addEventListener('copy', () => {
                     logSecurityEvent('CLIPBOARD_COPY_ATTEMPT', {
                         timestamp: new Date().toISOString()
                     });
                 });
                 
-                document.addEventListener('paste', (e) => {
+                document.addEventListener('paste', () => {
                     logSecurityEvent('CLIPBOARD_PASTE_ATTEMPT', {
                         timestamp: new Date().toISOString()
                     });

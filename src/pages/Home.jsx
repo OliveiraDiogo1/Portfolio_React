@@ -133,7 +133,7 @@ const Home = React.memo(() => {
         techIcons.map((icon, idx) => (
             <div key={idx} className="relative group w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center">
                 <span className={`absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-80 transition duration-300 pointer-events-none ${icon.glow}`}></span>
-                <img src={icon.src} alt={icon.alt} className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain relative z-10" loading="lazy" />
+                <img src={icon.src} alt={icon.alt} className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain relative z-10" loading="lazy" decoding="async" />
             </div>
         )), []);
 
@@ -151,6 +151,7 @@ const Home = React.memo(() => {
                                 draggable={false}
                                 style={{ aspectRatio: '1 / 1' }}
                                 loading="lazy"
+                                decoding="async"
                             />
                         </div>
                     </div>
