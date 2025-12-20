@@ -144,7 +144,7 @@ export default function Contact() {
     [focusedField, form]);
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden py-8 sm:py-0">
+        <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 relative overflow-hidden pt-24 sm:pt-28 md:pt-32 pb-8">
             <div className="absolute inset-0 z-0 animate-pulse bg-gradient-to-tr from-blue-500/10 via-purple-700/10 to-pink-500/10" />
 
             <div className="relative z-10 w-full max-w-3xl px-4 sm:px-6">
