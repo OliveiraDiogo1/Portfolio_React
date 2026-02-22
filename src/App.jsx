@@ -199,6 +199,7 @@ const Navbar = React.memo(() => {
         <HashLink smooth to="/#about" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">About</HashLink>
         <Link to="/skills" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Skills</Link>
         <HashLink smooth to="/#experience" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Experience</HashLink>
+        <HashLink smooth to="/#projects" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm sm:text-base">Projects</HashLink>
         <Link to="/contact" onClick={closeMenu} className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow transition-all text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-yellow-200">Contact</Link>
       </div>
       
@@ -208,10 +209,105 @@ const Navbar = React.memo(() => {
           <HashLink smooth to="/#about" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">About</HashLink>
           <Link to="/skills" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Skills</Link>
           <HashLink smooth to="/#experience" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Experience</HashLink>
+          <HashLink smooth to="/#projects" onClick={closeMenu} className="font-bold text-gray-900 hover:text-yellow-500 transition px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-base">Projects</HashLink>
           <Link to="/contact" onClick={closeMenu} className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold px-3 py-2 rounded-full shadow transition-all text-base focus:outline-none focus:ring-2 focus:ring-yellow-200 text-center">Contact</Link>
         </div>
       </div>
     </nav>
+  );
+});
+
+const estimateImages = [
+  { src: "/assets/projects/Estimates/Estimate1.png", alt: "Estimates App - Screen 1" },
+  { src: "/assets/projects/Estimates/Estimate2.png", alt: "Estimates App - Screen 2" },
+  { src: "/assets/projects/Estimates/Estimate3.png", alt: "Estimates App - Screen 3" },
+  { src: "/assets/projects/Estimates/Estimate4.png", alt: "Estimates App - Screen 4" },
+  { src: "/assets/projects/Estimates/Estimate5.png", alt: "Estimates App - Screen 5" },
+];
+
+const ProjectsSection = React.memo(() => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? estimateImages.length - 1 : prev - 1));
+  }, []);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev === estimateImages.length - 1 ? 0 : prev + 1));
+  }, []);
+
+  return (
+    <section
+      className="w-full flex flex-col items-center justify-center bg-black min-h-[70vh] py-12 sm:py-16"
+    >
+      <div className="w-[95vw] max-w-[1800px] flex flex-col items-center justify-start">
+        <h2 className="text-[6vw] sm:text-[8vw] font-extrabold text-white text-center mt-0 mb-8 sm:mb-12 tracking-widest leading-none">PROJECTS</h2>
+
+        <div className="w-full max-w-5xl bg-gray-900 rounded-2xl border border-gray-700 shadow-2xl p-6 sm:p-10 flex flex-col items-center gap-6">
+          <span className="px-6 py-3 bg-yellow-400/20 text-yellow-300 text-2xl sm:text-3xl font-bold rounded-full border border-yellow-400/30">EstiMate</span>
+          <p className="text-gray-300 text-base sm:text-lg text-center max-w-2xl">
+            A private full-stack application built with Vue.js and Supabase for automating project estimate generation. Developed for a prospect who became a client after I identified this need as they were creating all estimates manually.
+          </p>
+
+          {/* Image Carousel */}
+          <div className="relative w-full flex items-center justify-center select-none">
+            {/* Left Arrow */}
+            <button
+              onClick={goToPrevious}
+              className="absolute left-0 sm:left-2 z-10 bg-black/60 hover:bg-yellow-400/80 text-white hover:text-black rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              aria-label="Previous image"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Image */}
+            <div className="w-full max-w-3xl mx-12 sm:mx-16 overflow-hidden rounded-xl border border-gray-700 shadow-lg h-[300px] sm:h-[400px] md:h-[500px] flex items-center justify-center bg-gray-800">
+              <img
+                src={estimateImages[currentIndex].src}
+                alt={estimateImages[currentIndex].alt}
+                className="max-w-full max-h-full object-contain transition-opacity duration-300"
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+              />
+            </div>
+
+            {/* Right Arrow */}
+            <button
+              onClick={goToNext}
+              className="absolute right-0 sm:right-2 z-10 bg-black/60 hover:bg-yellow-400/80 text-white hover:text-black rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              aria-label="Next image"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Dot indicators */}
+          <div className="flex gap-2 mt-2">
+            {estimateImages.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`w-3 h-3 rounded-full transition-all duration-200 focus:outline-none ${
+                  idx === currentIndex
+                    ? 'bg-yellow-400 scale-110 shadow-lg shadow-yellow-400/40'
+                    : 'bg-gray-600 hover:bg-gray-400'
+                }`}
+                aria-label={`Go to image ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+          <p className="text-gray-500 text-sm mt-2">
+            {currentIndex + 1} / {estimateImages.length}
+          </p>
+        </div>
+      </div>
+    </section>
   );
 });
 
@@ -300,6 +396,9 @@ function App() {
               </div>
               <div id="experience">
                 <ExperienceSection />
+              </div>
+              <div id="projects">
+                <ProjectsSection />
               </div>
             </>
           } />
