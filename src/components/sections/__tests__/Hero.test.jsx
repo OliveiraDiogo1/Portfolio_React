@@ -22,6 +22,12 @@ describe('Hero', () => {
     expect(screen.getByRole('link', { name: /Download CV/i })).toHaveAttribute('download');
   });
 
+  it('shows the status line and the framed logo', () => {
+    renderWithProviders(<Hero />);
+    expect(screen.getByText(/Open to conversations/i)).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /Diogo Oliveira/i })).toHaveAttribute('src', '/assets/dev-icon.png');
+  });
+
   it('lists the current role, the degree and the core stack', () => {
     renderWithProviders(<Hero />);
     expect(screen.getByText('Full-Stack Developer at F.Rego')).toBeInTheDocument();

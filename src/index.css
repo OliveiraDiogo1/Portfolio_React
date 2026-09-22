@@ -92,15 +92,30 @@
   }
 
   .chip {
-    @apply inline-flex items-center rounded-xs border border-line px-2.5 py-1 text-sm text-muted;
+    @apply inline-flex items-center rounded-xs border border-line px-2.5 py-1 text-sm text-muted transition-colors hover:border-ink/60 hover:text-ink;
   }
 
   .btn-primary {
-    @apply inline-flex h-11 items-center justify-center rounded-xs bg-accent px-5 text-[0.9375rem] font-semibold text-accent-ink transition-colors hover:bg-accent/90;
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-xs bg-accent px-5 text-[0.9375rem] font-semibold text-accent-ink transition-colors hover:bg-accent/90;
   }
 
   .btn-outline {
-    @apply inline-flex h-11 items-center justify-center rounded-xs border border-line px-5 text-[0.9375rem] font-semibold text-ink transition-colors hover:border-ink;
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-xs border border-line px-5 text-[0.9375rem] font-semibold text-ink transition-colors hover:border-ink;
+  }
+
+  .btn-inverse {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-xs bg-accent-ink px-5 text-[0.9375rem] font-semibold text-accent transition-colors hover:bg-accent-ink/90;
+  }
+
+  .btn-outline-inverse {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-xs border border-accent-ink/25 px-5 text-[0.9375rem] font-semibold text-accent-ink transition-colors hover:border-accent-ink;
+  }
+
+  .grid-texture {
+    background-image: radial-gradient(circle at 1px 1px, rgb(var(--c-line)) 1px, transparent 1px);
+    background-size: 28px 28px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
   }
 
   .link-quiet {

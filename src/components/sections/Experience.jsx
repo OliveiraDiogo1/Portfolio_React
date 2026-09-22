@@ -16,7 +16,7 @@ function ExperienceEntry({ entry, index, t }) {
         <div className="md:col-span-3">
           <p className="label tnum">{t(entry.period)}</p>
           <p className="mt-1 text-sm text-muted">{t(entry.location)}</p>
-          <div className="mt-4 hidden h-12 w-12 items-center justify-center border border-line bg-surface p-2 md:flex">
+          <div className="mt-4 hidden h-12 w-12 items-center justify-center border border-line bg-surface p-2 transition-colors hover:border-accent md:flex">
             <img src={entry.logo} alt="" className="h-full w-full object-contain" loading="lazy" decoding="async" />
           </div>
         </div>

@@ -24,11 +24,11 @@ describe('static files', () => {
     expect(data.sameAs.length).toBeGreaterThanOrEqual(2);
   });
 
-  it('CSP allows the GitHub API, EmailJS and Plausible', () => {
+  it('CSP allows EmailJS and Plausible', () => {
     const html = read('index.html');
-    expect(html).toContain('https://api.github.com');
     expect(html).toContain('https://api.emailjs.com');
     expect(html).toContain('https://plausible.io');
+    expect(html).not.toContain('https://api.github.com');
   });
 
   it('robots.txt and sitemap.xml target devdiogo.pt', () => {

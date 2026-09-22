@@ -1,11 +1,14 @@
 import { useCallback, useState } from 'react';
+import { AnimatePresence, motion as Motion, useReducedMotion } from 'motion/react';
 import { estimateProject } from '../../data/projects.js';
 import { ui } from '../../i18n/ui.js';
 import { useLanguage } from '../../i18n/LanguageContext.jsx';
 import { Chip } from '../ui/Chip.jsx';
+import { EASE } from '../ui/motion.js';
 
 export function Projects() {
   const { t } = useLanguage();
+  const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
   const total = estimateProject.images.length;
   const current = estimateProject.images[index];
@@ -34,13 +37,30 @@ export function Projects() {
 
       <div className="md:col-span-7">
         <div className="border border-line bg-surface">
-          <img
-            src={current.src}
-            alt={t(current.alt)}
-            className="aspect-[16/10] w-full object-contain"
-            loading="lazy"
-            decoding="async"
-          />
+          {reduceMotion ? (
+            <img
+              src={current.src}
+              alt={t(current.alt)}
+              className="aspect-[16/10] w-full object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <AnimatePresence mode="wait" initial={false}>
+              <Motion.img
+                key={current.src}
+                src={current.src}
+                alt={t(current.alt)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25, ease: EASE }}
+                className="aspect-[16/10] w-full object-contain"
+                loading="lazy"
+                decoding="async"
+              />
+            </AnimatePresence>
+          )}
           <div className="flex items-center justify-between border-t border-line px-4 py-3">
             <button
               type="button"

@@ -37,6 +37,7 @@ export const ui = {
       pt: 'Mestrado em Engenharia de Software no ISEP, pós-laboral',
     },
     stackLabel: { en: 'Core stack', pt: 'Stack principal' },
+    status: { en: 'Open to conversations', pt: 'Aberto a conversas' },
   },
   about: {
     title: { en: 'About', pt: 'Sobre' },
@@ -85,20 +86,6 @@ export const ui = {
       next: { en: 'Next screen', pt: 'Ecrã seguinte' },
       goTo: { en: 'Go to screen {index}', pt: 'Ir para o ecrã {index}' },
       counter: { en: 'Screen {current} of {total}', pt: 'Ecrã {current} de {total}' },
-    },
-    github: {
-      title: { en: 'On GitHub', pt: 'No GitHub' },
-      subtitle: {
-        en: 'Public code, live stats from the GitHub API.',
-        pt: 'Código público, estatísticas em direto da API do GitHub.',
-      },
-      viewAll: { en: 'View all repositories', pt: 'Ver todos os repositórios' },
-      liveUnavailable: {
-        en: 'Live stats unavailable right now — repository links still work.',
-        pt: 'Estatísticas indisponíveis neste momento — os links dos repositórios continuam a funcionar.',
-      },
-      stars: { en: '{count} stars', pt: '{count} estrelas' },
-      updated: { en: 'Updated {when}', pt: 'Atualizado {when}' },
     },
   },
   contactCta: {

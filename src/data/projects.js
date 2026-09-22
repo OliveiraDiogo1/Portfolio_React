@@ -19,33 +19,3 @@ export const estimateProject = {
     { src: '/assets/projects/Estimates/Estimate5.png', alt: { en: 'EstiMate — exported document', pt: 'EstiMate — documento exportado' } },
   ],
 };
-
-export const githubFeed = {
-  username: 'OliveiraDiogo1',
-  selected: [
-    {
-      name: 'Portfolio_React',
-      url: 'https://github.com/OliveiraDiogo1/Portfolio_React',
-      description: {
-        en: 'This portfolio — React, Vite, Tailwind, i18n and a design system of its own.',
-        pt: 'Este portfólio — React, Vite, Tailwind, i18n e um design system próprio.',
-      },
-    },
-    {
-      name: 'GOFTS',
-      url: 'https://github.com/OliveiraDiogo1/GOFTS',
-      description: {
-        en: 'Game built for a university project, focused on gameplay logic and state.',
-        pt: 'Jogo construído para um projeto universitário, focado em lógica de jogo e estado.',
-      },
-    },
-    {
-      name: 'git_test',
-      url: 'https://github.com/OliveiraDiogo1/git_test',
-      description: {
-        en: 'The Odin Project exercises — the start of the road into web development.',
-        pt: 'Exercícios do The Odin Project — o início do caminho no desenvolvimento web.',
-      },
-    },
-  ],
-};

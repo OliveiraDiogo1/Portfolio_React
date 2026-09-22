@@ -3,7 +3,7 @@ import { profile } from '../profile.js';
 import { education } from '../education.js';
 import { experience } from '../experience.js';
 import { skillGroups } from '../skills.js';
-import { estimateProject, githubFeed } from '../projects.js';
+import { estimateProject } from '../projects.js';
 
 function expectBilingual(value, label) {
   expect(value, `${label} is missing`).toBeTruthy();
@@ -60,14 +60,10 @@ describe('content data', () => {
     });
   });
 
-  it('projects data includes screenshots and GitHub selection', () => {
+  it('projects data includes screenshots', () => {
     expect(estimateProject.images).toHaveLength(5);
     expectBilingual(estimateProject.summary, 'estimate summary');
     expectBilingual(estimateProject.story, 'estimate story');
-    expect(githubFeed.username).toBe('OliveiraDiogo1');
-    expect(githubFeed.selected.length).toBeGreaterThanOrEqual(2);
-    githubFeed.selected.forEach((repo) => {
-      expectBilingual(repo.description, `repo ${repo.name} description`);
-    });
+    expect(estimateProject.status).toBeTruthy();
   });
 });
