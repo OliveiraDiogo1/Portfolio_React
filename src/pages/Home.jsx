@@ -5,7 +5,8 @@ import { Hero } from '../components/sections/Hero.jsx';
 import { About } from '../components/sections/About.jsx';
 import { Experience } from '../components/sections/Experience.jsx';
 import { Skills } from '../components/sections/Skills.jsx';
-import { Placeholder } from '../components/sections/Placeholder.jsx';
+import { Projects } from '../components/sections/Projects.jsx';
+import { GithubProjects } from '../components/sections/GithubProjects.jsx';
 
 export default function Home() {
   const { t } = useLanguage();
@@ -25,7 +26,8 @@ export default function Home() {
         <Skills />
       </Section>
       <Section id="projects" title={t(ui.projects.title)}>
-        <Placeholder label="Contact" />
+        <Projects />
+        <GithubProjects />
       </Section>
     </>
   );

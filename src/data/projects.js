@@ -25,6 +25,7 @@ export const githubFeed = {
   selected: [
     {
       name: 'Portfolio_React',
+      url: 'https://github.com/OliveiraDiogo1/Portfolio_React',
       description: {
         en: 'This portfolio — React, Vite, Tailwind, i18n and a design system of its own.',
         pt: 'Este portfólio — React, Vite, Tailwind, i18n e um design system próprio.',
@@ -32,6 +33,7 @@ export const githubFeed = {
     },
     {
       name: 'GOFTS',
+      url: 'https://github.com/OliveiraDiogo1/GOFTS',
       description: {
         en: 'Game built for a university project, focused on gameplay logic and state.',
         pt: 'Jogo construído para um projeto universitário, focado em lógica de jogo e estado.',
@@ -39,6 +41,7 @@ export const githubFeed = {
     },
     {
       name: 'git_test',
+      url: 'https://github.com/OliveiraDiogo1/git_test',
       description: {
         en: 'The Odin Project exercises — the start of the road into web development.',
         pt: 'Exercícios do The Odin Project — o início do caminho no desenvolvimento web.',
