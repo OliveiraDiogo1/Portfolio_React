@@ -29,4 +29,14 @@ if (typeof window !== 'undefined') {
   if (!('IntersectionObserver' in window)) {
     window.IntersectionObserver = MockIntersectionObserver;
   }
+
+  class MockResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+
+  if (!('ResizeObserver' in window)) {
+    window.ResizeObserver = MockResizeObserver;
+  }
 }

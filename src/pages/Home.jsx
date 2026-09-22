@@ -3,6 +3,7 @@ import { useLanguage } from '../i18n/LanguageContext.jsx';
 import { Section } from '../components/ui/Section.jsx';
 import { Hero } from '../components/sections/Hero.jsx';
 import { About } from '../components/sections/About.jsx';
+import { Experience } from '../components/sections/Experience.jsx';
 import { Placeholder } from '../components/sections/Placeholder.jsx';
 
 export default function Home() {
@@ -17,7 +18,7 @@ export default function Home() {
         <About />
       </Section>
       <Section id="experience" title={t(ui.experience.title)}>
-        <Placeholder label="Experience" />
+        <Experience />
       </Section>
       <Section id="skills" title={t(ui.skills.title)}>
         <Placeholder label="Skills" />
