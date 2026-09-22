@@ -1,12 +1,28 @@
-# React + Vite
+# Portfolio — devdiogo.pt
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfólio pessoal de Diogo Oliveira, full-stack developer. SPA em React 19 + Vite 7 + Tailwind 3, bilingue (PT/EN), com temas claro e escuro, timeline de experiência, case study de projeto e feed de repositórios GitHub.
 
-Currently, two official plugins are available:
+## Comandos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install        # dependências
+npm run dev        # servidor de desenvolvimento
+npm run build      # build de produção
+npm run og         # regenera a imagem Open Graph (public/og-cover.png)
+npm run lint       # ESLint
+npx vitest run     # testes
+npm run coverage   # cobertura
+```
 
-## Expanding the ESLint configuration
+## Estrutura
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `src/data/` — conteúdo (perfil, experiência, educação, skills, projetos) em PT e EN.
+- `src/i18n/` — provider de idioma e copy da interface.
+- `src/theme/` — provider de tema (dark por omissão).
+- `src/components/sections/` — secções da página.
+- `docs/domain-migration.md` — runbook da migração de domínio.
+- `docs/superpowers/` — spec e plano deste redesign.
+
+## Deploy
+
+Vercel. Domínio principal: `devdiogo.pt` (ver `docs/domain-migration.md`).
