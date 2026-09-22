@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- provider files export their hook alongside the provider by design */
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 const STORAGE_KEY = 'portfolio:theme';
