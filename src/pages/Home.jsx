@@ -4,6 +4,7 @@ import { Section } from '../components/ui/Section.jsx';
 import { Hero } from '../components/sections/Hero.jsx';
 import { About } from '../components/sections/About.jsx';
 import { Experience } from '../components/sections/Experience.jsx';
+import { Skills } from '../components/sections/Skills.jsx';
 import { Placeholder } from '../components/sections/Placeholder.jsx';
 
 export default function Home() {
@@ -21,7 +22,7 @@ export default function Home() {
         <Experience />
       </Section>
       <Section id="skills" title={t(ui.skills.title)}>
-        <Placeholder label="Skills" />
+        <Skills />
       </Section>
       <Section id="projects" title={t(ui.projects.title)}>
         <Placeholder label="Contact" />
