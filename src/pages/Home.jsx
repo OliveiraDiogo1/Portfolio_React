@@ -1,6 +1,7 @@
 import { ui } from '../i18n/ui.js';
 import { useLanguage } from '../i18n/LanguageContext.jsx';
 import { Section } from '../components/ui/Section.jsx';
+import { Hero } from '../components/sections/Hero.jsx';
 import { Placeholder } from '../components/sections/Placeholder.jsx';
 
 export default function Home() {
@@ -9,7 +10,7 @@ export default function Home() {
   return (
     <>
       <div id="home">
-        <Placeholder label="Hero" />
+        <Hero />
       </div>
       <Section id="about" title={t(ui.about.title)}>
         <Placeholder label="About" />
