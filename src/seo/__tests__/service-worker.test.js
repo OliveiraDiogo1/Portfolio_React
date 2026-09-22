@@ -46,7 +46,6 @@ function createHarness(fetchMock) {
 
   const location = { origin: 'https://devdiogo.pt' };
 
-  // eslint-disable-next-line no-new-func
   new Function('self', 'caches', 'location', 'fetch', SOURCE)(self, caches, location, fetchMock);
 
   return { listeners, store, putCalls };
