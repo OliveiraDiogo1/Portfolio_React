@@ -51,6 +51,14 @@ describe('static files', () => {
     expect(sw).toContain("request.mode === 'navigate'");
   });
 
+  it('configures the Vercel SPA fallback so direct route requests do not 404', () => {
+    const config = JSON.parse(read('vercel.json'));
+    const rewrite = (config.rewrites ?? []).find((entry) => entry.destination === '/index.html');
+    expect(rewrite).toBeTruthy();
+    expect(config.functions).toBeUndefined();
+    expect(JSON.stringify(config)).not.toContain('Cross-Origin-Embedder-Policy');
+  });
+
   it('generated OG image exists as a real PNG', () => {
     const path = resolve(process.cwd(), 'public/og-cover.png');
     expect(existsSync(path)).toBe(true);
