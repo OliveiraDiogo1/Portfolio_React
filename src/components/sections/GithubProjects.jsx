@@ -14,7 +14,9 @@ export function GithubProjects() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h3 className="text-2xl font-bold text-ink">{t(ui.projects.github.title)}</h3>
-          <p className="mt-2 text-base text-muted">{t(ui.projects.github.subtitle)}</p>
+          <p className="mt-2 text-base text-muted">
+            {status === 'error' ? t(ui.projects.github.liveUnavailable) : t(ui.projects.github.subtitle)}
+          </p>
         </div>
         <a
           href={`https://github.com/${githubFeed.username}`}
@@ -25,8 +27,6 @@ export function GithubProjects() {
           {t(ui.projects.github.viewAll)}
         </a>
       </div>
-
-      {status === 'error' ? <p className="mt-6 text-sm text-muted">{t(ui.projects.github.liveUnavailable)}</p> : null}
 
       <ul className="mt-8 grid gap-4 md:grid-cols-3">
         {cards.map((repo) => (

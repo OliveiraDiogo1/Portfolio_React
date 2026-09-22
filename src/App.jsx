@@ -1,12 +1,23 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './theme/ThemeContext.jsx';
-import { LanguageProvider } from './i18n/LanguageContext.jsx';
+import { LanguageProvider, useLanguage } from './i18n/LanguageContext.jsx';
+import { ui } from './i18n/ui.js';
 import { Navbar } from './components/layout/Navbar.jsx';
 import { Footer } from './components/layout/Footer.jsx';
 import Home from './pages/Home.jsx';
 
 const Contact = lazy(() => import('./pages/Contact.jsx'));
+
+function SkipLink() {
+  const { t } = useLanguage();
+
+  return (
+    <a href="#main-content" className="skip-link">
+      {t(ui.skipToContent)}
+    </a>
+  );
+}
 
 function ThirdPartyEffects() {
   useEffect(() => {
@@ -52,6 +63,7 @@ export default function App() {
         <Router>
           <ThirdPartyEffects />
           <div className="flex min-h-screen flex-col bg-bg">
+            <SkipLink />
             <Navbar />
             <main id="main-content" className="flex-1">
               <Suspense

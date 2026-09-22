@@ -106,6 +106,23 @@
   .link-quiet {
     @apply underline decoration-line underline-offset-4 transition-colors hover:decoration-accent;
   }
+
+  .skip-link {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    z-index: 100;
+    padding: 8px 12px;
+    border-radius: 2px;
+    background: rgb(var(--c-accent));
+    color: rgb(var(--c-accent-ink));
+    transform: translateY(-200%);
+    transition: transform 0.2s ease;
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

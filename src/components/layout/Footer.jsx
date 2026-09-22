@@ -1,3 +1,4 @@
+import { HashLink } from 'react-router-hash-link';
 import { profile } from '../../data/profile.js';
 import { ui } from '../../i18n/ui.js';
 import { useLanguage } from '../../i18n/LanguageContext.jsx';
@@ -20,9 +21,9 @@ export function Footer() {
           <a href={profile.links.linkedin} target="_blank" rel="noopener noreferrer" className="link-quiet">
             LinkedIn
           </a>
-          <a href="#home" className="link-quiet">
+          <HashLink smooth to="/#home" className="link-quiet">
             {t(ui.footer.backToTop)}
-          </a>
+          </HashLink>
         </div>
       </div>
     </footer>

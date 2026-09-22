@@ -24,10 +24,11 @@ describe('static files', () => {
     expect(data.sameAs.length).toBeGreaterThanOrEqual(2);
   });
 
-  it('CSP allows the GitHub API and EmailJS', () => {
+  it('CSP allows the GitHub API, EmailJS and Plausible', () => {
     const html = read('index.html');
     expect(html).toContain('https://api.github.com');
     expect(html).toContain('https://api.emailjs.com');
+    expect(html).toContain('https://plausible.io');
   });
 
   it('robots.txt and sitemap.xml target devdiogo.pt', () => {
@@ -46,7 +47,7 @@ describe('static files', () => {
 
   it('service worker uses network-first navigation and a new cache version', () => {
     const sw = read('public/sw.js');
-    expect(sw).toContain('portfolio-v3');
+    expect(sw).toContain('portfolio-v4');
     expect(sw).toContain("request.mode === 'navigate'");
   });
 

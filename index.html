@@ -24,7 +24,7 @@
 
   <!-- Relaxed Content Security Policy -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://api.emailjs.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.emailjs.com https://api.github.com; frame-src https://www.google.com/recaptcha/;" />
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://api.emailjs.com https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.emailjs.com https://api.github.com https://plausible.io; frame-src https://www.google.com/recaptcha/;" />
 
   <!-- SEO and Performance -->
   <title>Diogo Oliveira — Full-Stack Developer</title>
@@ -95,25 +95,8 @@
 </head>
 
 <body>
-  <a href="#main-content" class="skip-link">Skip to content</a>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
-  <style>
-    .skip-link {
-      position: absolute;
-      left: 8px;
-      top: 8px;
-      background: #FDE048;
-      color: #15171C;
-      padding: 8px 12px;
-      border-radius: 2px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transform: translateY(-200%);
-      transition: transform 0.2s ease;
-      z-index: 1000;
-    }
-    .skip-link:focus { transform: translateY(0); }
-  </style>
 </body>
 
 </html>

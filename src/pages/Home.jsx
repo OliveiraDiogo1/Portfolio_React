@@ -7,6 +7,7 @@ import { Experience } from '../components/sections/Experience.jsx';
 import { Skills } from '../components/sections/Skills.jsx';
 import { Projects } from '../components/sections/Projects.jsx';
 import { GithubProjects } from '../components/sections/GithubProjects.jsx';
+import { ContactCta } from '../components/sections/ContactCta.jsx';
 
 export default function Home() {
   const { t } = useLanguage();
@@ -28,6 +29,9 @@ export default function Home() {
       <Section id="projects" title={t(ui.projects.title)}>
         <Projects />
         <GithubProjects />
+      </Section>
+      <Section>
+        <ContactCta />
       </Section>
     </>
   );

@@ -76,11 +76,16 @@ describe('useGithubRepos', () => {
   });
 
   it('reports an error state when the API fails', async () => {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 403, json: async () => ({}) }));
+    const fetchMock = vi.fn().mockResolvedValue({ ok: false, status: 403, json: async () => ({}) });
+    vi.stubGlobal('fetch', fetchMock);
 
-    const { result } = renderHook(() => useGithubRepos({ username: USERNAME }));
+    const { result, rerender } = renderHook(() => useGithubRepos({ username: USERNAME }));
 
     await waitFor(() => expect(result.current.status).toBe('error'));
     expect(result.current.repos).toEqual([]);
+
+    rerender();
+    rerender();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });

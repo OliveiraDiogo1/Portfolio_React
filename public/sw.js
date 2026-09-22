@@ -1,8 +1,32 @@
-const CACHE = 'portfolio-v3';
+const CACHE = 'portfolio-v4';
+const HASHED_ASSET = /-[A-Za-z0-9_-]{8,}\.(?:js|css|woff2?|png|jpe?g|svg|webp)$/;
 
-function put(request, response) {
+function put(event, request, response) {
+  if (!response.ok) {
+    return;
+  }
   const copy = response.clone();
-  caches.open(CACHE).then((cache) => cache.put(request, copy));
+  event.waitUntil(caches.open(CACHE).then((cache) => cache.put(request, copy)));
+}
+
+function cacheFirst(event, request) {
+  return caches.match(request).then(
+    (cached) =>
+      cached ||
+      fetch(request).then((response) => {
+        put(event, request, response);
+        return response;
+      })
+  );
+}
+
+function networkFirst(event, request, fallback) {
+  return fetch(request)
+    .then((response) => {
+      put(event, request, response);
+      return response;
+    })
+    .catch(() => caches.match(request).then((cached) => cached || (fallback ? fallback() : undefined)));
 }
 
 self.addEventListener('install', () => {
@@ -30,27 +54,11 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          put(request, response);
-          return response;
-        })
-        .catch(() => caches.match(request).then((cached) => cached || caches.match('/')))
-    );
+    event.respondWith(networkFirst(event, request, () => caches.match('/')));
     return;
   }
 
   if (url.pathname.startsWith('/assets/')) {
-    event.respondWith(
-      caches.match(request).then(
-        (cached) =>
-          cached ||
-          fetch(request).then((response) => {
-            put(request, response);
-            return response;
-          })
-      )
-    );
+    event.respondWith(HASHED_ASSET.test(url.pathname) ? cacheFirst(event, request) : networkFirst(event, request));
   }
 });
