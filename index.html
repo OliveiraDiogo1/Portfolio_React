@@ -3,6 +3,18 @@
 
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('portfolio:theme');
+        var theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        document.documentElement.style.colorScheme = theme;
+      } catch (error) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Essential Security Meta Tags -->
@@ -12,14 +24,20 @@
 
   <!-- Relaxed Content Security Policy -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://api.emailjs.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.emailjs.com; frame-src https://www.google.com/recaptcha/;" />
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://api.emailjs.com https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.emailjs.com https://plausible.io; frame-src https://www.google.com/recaptcha/;" />
 
   <!-- SEO and Performance -->
-  <meta name="description" content="Diogo Oliveira - Full-Stack Developer Portfolio" />
-  <meta name="keywords" content="developer, portfolio, react, javascript, full-stack" />
+  <title>Diogo Oliveira — Full-Stack Developer</title>
+  <meta
+    name="description"
+    content="Full-stack developer in Porto, Portugal. React, Vue, .NET and Python shipped to production on AWS and Google Cloud."
+  />
   <meta name="author" content="Diogo Oliveira" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#0F1115" />
+  <link rel="canonical" href="https://devdiogo.pt/" />
+  <link rel="icon" type="image/png" href="/assets/dev-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
   <link rel="preload" as="image" href="/assets/dev-icon.png" />
   <link rel="preconnect" href="https://www.google.com" />
   <link rel="preconnect" href="https://www.gstatic.com" />
@@ -28,50 +46,57 @@
   <link rel="dns-prefetch" href="//www.gstatic.com" />
   <link rel="dns-prefetch" href="//api.emailjs.com" />
 
-  <!-- Open Graph Image -->
-  <meta property="og:image" content="/assets/dev-icon.png" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Diogo Oliveira — Full-Stack Developer" />
+  <meta
+    property="og:description"
+    content="Full-stack developer in Porto, Portugal. React, Vue, .NET and Python shipped to production on AWS and Google Cloud."
+  />
+  <meta property="og:url" content="https://devdiogo.pt/" />
+  <meta property="og:image" content="https://devdiogo.pt/og-cover.png" />
   <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:alt" content="Diogo Oliveira Portfolio" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Diogo Oliveira — Full-Stack Developer" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:locale:alternate" content="pt_PT" />
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Diogo Oliveira - Full-Stack Developer" />
-  <meta name="twitter:description" content="Full-Stack Developer Portfolio" />
-  <meta name="twitter:image" content="/assets/dev-icon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Diogo Oliveira — Full-Stack Developer" />
+  <meta
+    name="twitter:description"
+    content="Full-stack developer in Porto, Portugal. React, Vue, .NET and Python shipped to production."
+  />
+  <meta name="twitter:image" content="https://devdiogo.pt/og-cover.png" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Diogo Oliveira - Full-Stack Developer" />
-  <meta property="og:description" content="Full-Stack Developer Portfolio" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yourdomain.com" />
-
-  <!-- Favicon + Manifest -->
-  <link rel="icon" type="image/png" href="/assets/dev-icon.png" />
-  <link rel="manifest" href="/manifest.json" />
-
-  <title>Diogo Oliveira - Full-Stack Developer</title>
+  <!-- Structured data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Diogo Oliveira",
+      "jobTitle": "Full-Stack Developer",
+      "url": "https://devdiogo.pt/",
+      "email": "mailto:diogo.mto123@gmail.com",
+      "address": { "@type": "PostalAddress", "addressLocality": "Porto", "addressCountry": "PT" },
+      "sameAs": [
+        "https://github.com/OliveiraDiogo1",
+        "https://www.linkedin.com/in/oliveiradiogo1/"
+      ],
+      "knowsLanguage": ["pt", "en", "es", "eu", "fr"],
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "Instituto Superior de Engenharia do Porto" },
+        { "@type": "CollegeOrUniversity", "name": "Universidade Portucalense Infante D. Henrique" }
+      ]
+    }
+  </script>
 </head>
 
 <body>
-  <a href="#main-content" class="skip-link">Skip to content</a>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
-  <style>
-    .skip-link {
-      position: absolute;
-      left: 8px;
-      top: 8px;
-      background: #FDE048;
-      color: #000;
-      padding: 8px 12px;
-      border-radius: 9999px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transform: translateY(-200%);
-      transition: transform 0.2s ease;
-      z-index: 1000;
-    }
-    .skip-link:focus { transform: translateY(0); }
-  </style>
 </body>
 
 </html>
